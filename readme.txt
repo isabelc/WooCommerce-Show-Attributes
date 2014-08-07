@@ -1,6 +1,6 @@
 === WooCommerce Show Attributes ===
 Contributors: isabel104
-Donate link: Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 3.9.2
