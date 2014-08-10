@@ -37,7 +37,7 @@ class WooCommerce_Show_Attributes {
 	}
 
 	private function __construct() {
-		add_action( 'plugins_loaded', 'isa_woo_max_qty_load_textdomain' );
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action('woocommerce_single_product_summary', array( $this, 'show_attributes' ), 25);
 		add_filter( 'woocommerce_product_tabs', array( $this, 'additional_info_tab' ), 98 );
 	}
@@ -45,7 +45,7 @@ class WooCommerce_Show_Attributes {
 	/**
 	* Load plugin's textdomain
 	*/
-	function isa_woo_max_qty_load_textdomain() {
+	function load_textdomain() {
 		load_plugin_textdomain( 'woocommerce-show-attributes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 	
