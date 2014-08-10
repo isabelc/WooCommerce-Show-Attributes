@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/show-woocommerce-product-attributes/
 Description: Show WooCommerce custom product attributes on the product page above Add-To-Cart.
-Version: 1.0
+Version: 1.1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -164,14 +164,40 @@ class WooCommerce_Show_Attributes {
 	*/
 	public function additional_info_tab( $tabs ) {
 		global $product;
-		// Check if product has attributes, dimensions or weight
-		if( $product->has_attributes() || $product->has_dimensions() || $product->has_weight() ) {
-			$tabs['additional_information']['callback'] = 'WooCommerce_Show_Attributes::additional_info_tab_content';
+		// if has attributes
+		if( $product->has_attributes() ) {
+		
+			// check if any of the attributes are variations
+			$attributes = $product->get_attributes();
+			$need_tab = array();
+			foreach ( $attributes as $attribute ) {
+				$need_tab[] = empty($attribute['is_variation']) ? '' : 1;
+				
+				
+			}
+			
+			// if all $need_tab array values are empty, none of the attributes are variations
+			// so we would not need the tab except for dimensions or weight
+			
+			if ( count(array_filter($need_tab)) == 0 ) {
+				// if no dimensions & no weight, unset the tab
+				if ( ! $product->has_dimensions() && ! $product->has_weight() ) {
+					unset( $tabs['additional_information'] );
+				} else {
+					$tabs['additional_information']['callback'] = 'WooCommerce_Show_Attributes::additional_info_tab_content';
+				}
+			} else {
+				// we have variations so do tab Callback
+				$tabs['additional_information']['callback'] = 'WooCommerce_Show_Attributes::additional_info_tab_content';
+			}
+		} else {	// we have no attributes
+			if ( $product->has_dimensions() || $product->has_weight() ) {
+				$tabs['additional_information']['callback'] = 'WooCommerce_Show_Attributes::additional_info_tab_content';
+			}
 		}
 		return $tabs;
 	}
-} // end class
-
+}
 // only if WooCommerce is active
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
