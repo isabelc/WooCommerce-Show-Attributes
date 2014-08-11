@@ -2,8 +2,8 @@
 /*
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/show-woocommerce-product-attributes/
-Description: Show WooCommerce custom product attributes on the product page above Add-To-Cart.
-Version: 1.1
+Description: Show WooCommerce custom product attributes on the Product page, Cart page, admin Order Details page and emails.
+Version: 1.2
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -38,31 +38,38 @@ class WooCommerce_Show_Attributes {
 
 	private function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-		add_action('woocommerce_single_product_summary', array( $this, 'show_attributes' ), 25);
+		add_action('woocommerce_single_product_summary', array( $this, 'show_atts_on_product_page' ), 25);
 		add_filter( 'woocommerce_product_tabs', array( $this, 'additional_info_tab' ), 98 );
+		add_filter( 'woocommerce_cart_item_name', array( $this, 'show_atts_on_cart' ), 10, 2 );
+		add_filter( 'woocommerce_order_item_name', array( $this, 'show_atts_on_order' ), 99, 2 );
+		add_action( 'woocommerce_admin_order_item_values', array( $this, 'show_atts_in_admin_order'), 10, 3 );
+		add_action( 'woocommerce_admin_order_item_headers', array( $this, 'admin_order_item_header' ) );
 	}
 
 	/**
 	* Load plugin's textdomain
 	*/
-	function load_textdomain() {
+	public function load_textdomain() {
 		load_plugin_textdomain( 'woocommerce-show-attributes', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 	
 	/*
-	* Show our custom product attributes above the Add to Cart button. 
+	* Returns the HTML string for the custom product attributes.
 	* This does not affect nor include attributes which are used for Variations.
+	* @param object, the product object.
+	* @param string, HTML element to wrap each attribute with, accepts span or li.
 	*/
-	public function show_attributes(){
+	private function the_attributes( $product, $element ) {
 	   
-		global $product;
 		$attributes = $product->get_attributes();
 	   
 		if ( ! $attributes ) {
 			return;
 		}
-	   
-		$out = '<ul class="custom-attributes">';
+
+		$out = ('li' == $element) ? '<ul ' : '<span ';
+
+		$out .= 'class="custom-attributes">';
 	   
 		foreach ( $attributes as $attribute ) {
 		
@@ -92,25 +99,85 @@ class WooCommerce_Show_Attributes {
 				 
 				foreach ( $terms as $term ) {
 				
-					$out .= '<li class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
+					$out .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
 					$out .= '<span class="attribute-label">' . $tax_label . ': </span> ';
-					$out .= '<span class="attribute-value">' . $term->name . '</span></li>';
+					$out .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
+
+					if ('span' == $element) {
+						$out .= '<br />';
+					}
+
 					  
 				}
 				   
 			} else {
 			
-				$out .= '<li class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
+				$out .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
 				$out .= '<span class="attribute-label">' . $attribute['name'] . ': </span> ';
-				$out .= '<span class="attribute-value">' . $attribute['value'] . '</span></li>';
+				$out .= '<span class="attribute-value">' . $attribute['value'] . '</span></' . $element. '>';
+
+				if ('span' == $element) {
+					$out .= '<br />';
+				}
+
 			}
 		}
-		
-		$out .= '</ul>';
-
-		echo $out;
+		$out .= ('li' == $element) ? '</ul>' : '</span>';
+		return $out;
 	}
-    /**
+	
+
+	/**
+	* Show product attributes above the Add to Cart button on the single product page.
+	*/
+
+	public function show_atts_on_product_page() {
+		global $product;
+		echo $this->the_attributes( $product, 'li' );
+	}
+
+	/**
+	* Show product attributes below the item on the View Order page, 
+	* and on New Order email that goes to admin,
+	* and on Order Processing and Order Complete emails that go to customer.
+	*/
+	public function show_atts_on_order( $item_name, $item ) {
+	
+		$product = get_product( $item['product_id'] );
+		$out = $item_name . '<br />' . $this->the_attributes( $product, 'span' ) . '<br />';
+
+		return $out;
+	}
+
+	/**
+	* Show product attributes on the Cart page.
+	*/
+	public function show_atts_on_cart( $cart_item, $cart_item_key ) {
+
+		$product = $cart_item_key['data'];
+		$out = $cart_item . '<br />' . $this->the_attributes( $product, 'span' );
+		return $out;
+	
+	}
+
+	/**
+	* Show product attributes in the admin Order Details page.
+	* @param object, the product object
+	* @param $item
+	* @param integer, product id
+	*/
+	public function show_atts_in_admin_order( $product, $item, $item_id ) {
+		echo '<td><div class="view">' . $this->the_attributes( $product, 'span' ) . '</div></td>';
+	}
+
+	/**
+	* Add Attributes to the Order Items header on the admin Order Details page.
+	*/
+	public function admin_order_item_header() {
+		echo '<th class="wsa-custom-attributes">' . __( 'Attributes', 'woocommerce-show-attributes' ) . '</th>';
+	}
+
+   	/**
 	* The custom output for the Additional Information tab which now excludes our custom attributes.
 	*/
 	public function additional_info_tab_content() { ?>
