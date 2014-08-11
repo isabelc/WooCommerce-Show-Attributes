@@ -80,7 +80,11 @@ Add this CSS:
   font-style:italic
 }`
 
+== Screenshots ==
 
+1. The attributes under the product name on the Edit Order page in the admin backend.
+2. The attributes under the product name on the Cart page.
+3. The attributes under the product name on the Customer's Order Details page on the front end.
 
 == Changelog ==
 
