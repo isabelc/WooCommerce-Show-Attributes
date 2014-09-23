@@ -88,6 +88,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.2.1 =
+* Fix - Check for WP_ERROR when using wp_get_post_terms.
+
 = 1.2 =
 * New - Custom attributes now also appear on the Cart page, on the View Order page on front end for customers, on the Edit Order admin page under Order Items, on the New Order email that goes to the administrator, on the Receipt (Order Processing) email that goes to the customer, and on the Order Complete email that goes to the customer.
 

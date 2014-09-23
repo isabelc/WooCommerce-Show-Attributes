@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/show-woocommerce-product-attributes/
 Description: Show WooCommerce custom product attributes on the Product page, Cart page, admin Order Details page and emails.
-Version: 1.2.1-beta-1
+Version: 1.2.1-beta-2
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -82,35 +82,35 @@ class WooCommerce_Show_Attributes {
 				
 			if ( $attribute['is_taxonomy'] ) {
 				
-				$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );// @test this returns WP_Error
-				
-				isa_log('THE OUTPUT OF wp_get_post_terms( $product->id, $attribut...........');// @test
-				isa_log($terms);// @test
-				 
-				// get the taxonomy
-				$tax = $terms[0]->taxonomy;
-				 
-				// get the tax object
-				$tax_object = get_taxonomy($tax);
-				 
-				// get tax label
-				if ( isset ($tax_object->labels->name) ) {
-					$tax_label = $tax_object->labels->name;
-				} elseif ( isset( $tax_object->label ) ) {
-					$tax_label = $tax_object->label;
-				}
-				 
-				foreach ( $terms as $term ) {
-				
-					$out .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
-					$out .= '<span class="attribute-label">' . $tax_label . ': </span> ';
-					$out .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
+				$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
+				if ( ! empty( $terms ) ) {
+					if ( ! is_wp_error( $terms ) ) {
+	
+						// get the taxonomy
+						$tax = $terms[0]->taxonomy;
+						 
+						// get the tax object
+						$tax_object = get_taxonomy($tax);
+						 
+						// get tax label
+						if ( isset ($tax_object->labels->name) ) {
+							$tax_label = $tax_object->labels->name;
+						} elseif ( isset( $tax_object->label ) ) {
+							$tax_label = $tax_object->label;
+						}
+						 
+						foreach ( $terms as $term ) {
+						
+							$out .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
+							$out .= '<span class="attribute-label">' . $tax_label . ': </span> ';
+							$out .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
 
-					if ('span' == $element) {
-						$out .= '<br />';
+							if ('span' == $element) {
+								$out .= '<br />';
+							}
+						  
+						}
 					}
-
-					  
 				}
 				   
 			} else {
