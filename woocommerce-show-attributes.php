@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/show-woocommerce-product-attributes/
 Description: Show WooCommerce custom product attributes on the Product page, Cart page, admin Order Details page and emails.
-Version: 1.2.1-beta-2
+Version: 1.2.1-beta-3
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -58,8 +58,9 @@ class WooCommerce_Show_Attributes {
 	* This does not affect nor include attributes which are used for Variations.
 	* @param object, the product object.
 	* @param string, HTML element to wrap each attribute with, accepts span or li.
+	* @param boolean $visibility, whether to apply the visibility setting
 	*/
-	private function the_attributes( $product, $element ) {
+	private function the_attributes( $product, $element, $visibility = NULL ) {
 	   
 		$attributes = $product->get_attributes();
 	   
@@ -79,7 +80,11 @@ class WooCommerce_Show_Attributes {
 				continue;
 			}
 				
-				
+			// If on the single product page, apply the visibility setting
+			if ( $visibility && ! $attribute['is_visible'] ) {
+				continue;
+			}
+			
 			if ( $attribute['is_taxonomy'] ) {
 				
 				$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
@@ -136,7 +141,7 @@ class WooCommerce_Show_Attributes {
 
 	public function show_atts_on_product_page() {
 		global $product;
-		echo $this->the_attributes( $product, 'li' );
+		echo $this->the_attributes( $product, 'li', true );// @test 3rd param
 	}
 
 	/**
@@ -170,7 +175,7 @@ class WooCommerce_Show_Attributes {
 	* @param integer, product id
 	*/
 	public function show_atts_in_admin_order( $product, $item, $item_id ) {
-		echo '<td><div class="view">' . $this->the_attributes( $product, 'span' ) . '</div></td>';
+			echo '<td><div class="view">' . $this->the_attributes( $product, 'span' ) . '</div></td>';
 	}
 
 	/**
@@ -279,4 +284,18 @@ class WooCommerce_Show_Attributes {
 // only if WooCommerce is active
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
+}
+
+
+/** @test remove log function
+ * Log my own debug messages
+ */
+function isa_log( $message ) {
+    if (WP_DEBUG === true) {
+        if ( is_array( $message) || is_object( $message ) ) {
+            error_log( print_r( $message, true ) );
+        } else {
+            error_log( $message );
+        }
+    }
 }

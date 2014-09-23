@@ -89,6 +89,7 @@ Add this CSS:
 == Changelog ==
 
 = 1.2.1 =
+* New - The "Visible on the product page" checkbox will now be taken in to account on the single product page. If you uncheck that box, then the attribute will not be shown on the single product page. However, it will still show up on the rest of the places as described in the plugin description.
 * Fix - Check for WP_ERROR when using wp_get_post_terms.
 
 = 1.2 =
