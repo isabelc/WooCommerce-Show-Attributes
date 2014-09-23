@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.0
-Stable Tag: 1.2
+Stable Tag: 1.2.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,10 +33,22 @@ Fork it [on Github](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
 3.  Click "Activate" to activate the plugin.
 
-4.  That is all. Now your product attributes will be displayed in all the places described in the plugin description.
+4.  Now your product attributes will be displayed in all the places described in the plugin description.
+
+5.  Optional settings are at WooCommerce Settings -> Product tab, under "Product Data".
 
 
 == Frequently Asked Questions ==
+
+= How do I hide the attribute labels and only show the values? = 
+
+Go to WooCommerce Settings -> Product tab, under "Product Data". Check the box for **"Hide the Labels When Showing Product Attributes"**. Click "Save changes". 
+
+
+= How do I remove the list bullets from the attributes on the single product page? = 
+
+Go to WooCommerce Settings -> Product tab, under "Product Data". Check the box for **"Show Attributes in a span Element"**. Click "Save changes".  
+
 
 = How can I style the attributes? = 
 
@@ -46,14 +58,6 @@ On the "single product page", the attributes are in an unordered list with the C
 
 On the Cart page, View Order page, admin Edit Order page, and in the emails, the attributes are wrapped in a 'span' element with the CSS class "custom-attributes". Each attribute name and value pair is wrapped in a 'span' which has two CSS classes: its attribute name and its value. Within this span, each attribute label has the CSS class "attribute-label", and each attribute value has the CSS class "attribute-value".
 
-
-= How do I remove the list bullets from the attributes on the single product page? = 
-
-Add this CSS:
-
-`ul.custom-attributes {
-  list-style-type: none;
-}`
 
 = How do I remove the extra left-margin space from the attributes on the single product page? = 
 
@@ -89,7 +93,10 @@ Add this CSS:
 == Changelog ==
 
 = 1.2.1 =
-* New - The "Visible on the product page" checkbox will now be taken in to account on the single product page. If you uncheck that box, then the attribute will not be shown on the single product page. However, it will still show up on the rest of the places as described in the plugin description.
+* New - The "Visible on the product page" checkbox for each individual product will now be taken in to account on the single product page. If you uncheck that box, then the attribute will not be shown on the single product page. However, it will still show up on the rest of the places as described in the plugin description.
+* New - Easily remove list bullets from the attributes on the single product page with the new option, "Show Attributes in a span Element". The new option can be found on the WooCommerce Settings Product tab, under "Product Data".
+* New - Easily hide the labels and show only the values with the new option. The new option can be found on the WooCommerce Settings Product tab, under "Product Data".
+
 * Fix - Check for WP_ERROR when using wp_get_post_terms.
 
 = 1.2 =
