@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.0
-Stable Tag: 1.2.1
+Stable Tag: 1.2.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.2.2 =
+* Fix - Attribute labels were temporarily hidden leaving only the attribute value showing in version 1.2.1.
+
 = 1.2.1 =
 * New - The "Visible on the product page" checkbox for each individual product will now be taken in to account on the single product page. If you uncheck that box, then the attribute will not be shown on the single product page. However, it will still show up on the rest of the places as described in the plugin description.
 * New - Easily remove list bullets from the attributes on the single product page with the new option, "Show Attributes in a span Element". The new option can be found on the WooCommerce Settings Product tab, under "Product Data".
@@ -108,6 +111,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+
+= 1.2.2 =
+Fix - Attribute labels were temporarily hidden leaving only the attribute value showing in version 1.2.1.
 
 = 1.2 =
 New - Custom attributes now also appear on the Cart, View Order, admin Edit Order page, and in emails.

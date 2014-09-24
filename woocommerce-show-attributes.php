@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/show-woocommerce-product-attributes/
 Description: Show WooCommerce custom product attributes on the Product page, Cart page, admin Order Details page and emails.
-Version: 1.2.1
+Version: 1.2.2
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -117,7 +117,7 @@ class WooCommerce_Show_Attributes {
 						
 							$out .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
 							// Hide labels if they want to
-							if ( 'no' == $hide_labels ) {
+							if ( $hide_labels != 'yes' ) {
 								$out .= '<span class="attribute-label">' . $tax_label . ': </span> ';
 							}
 							$out .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
@@ -134,7 +134,7 @@ class WooCommerce_Show_Attributes {
 				$out .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
 				
 				// Hide labels if they want to
-				if ( 'no' == $hide_labels ) {
+				if ( $hide_labels != 'yes' ) {
 					$out .= '<span class="attribute-label">' . $attribute['name'] . ': </span> ';
 				}
 				$out .= '<span class="attribute-value">' . $attribute['value'] . '</span></' . $element. '>';
