@@ -394,14 +394,3 @@ class WooCommerce_Show_Attributes {
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
 }
-
-/**
- * Log my own debug messages
- */
-function isa_log( $message ) {
-        if ( is_array( $message) || is_object( $message ) ) {
-           error_log( print_r( $message, true ) );
-       } else {
-           error_log( $message );
-       }
- }
