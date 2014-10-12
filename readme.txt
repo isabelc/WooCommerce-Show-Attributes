@@ -92,6 +92,10 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.2.3 =
+* New - Option to show the attributes on the shop pages.
+* Fix - Typo in the description of one setting.
+
 = 1.2.2 =
 * Fix - Attribute labels were temporarily hidden leaving only the attribute value showing in version 1.2.1.
 

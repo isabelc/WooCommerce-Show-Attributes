@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/show-woocommerce-product-attributes/
 Description: Show WooCommerce custom product attributes on the Product page, Cart page, admin Order Details page and emails.
-Version: 1.2.2
+Version: 1.2.3-beta3
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -17,7 +17,7 @@ published by the Free Software Foundation.
 
 WooCommerce Show Attributes is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNSES FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
@@ -45,6 +45,7 @@ class WooCommerce_Show_Attributes {
 		add_action( 'woocommerce_admin_order_item_values', array( $this, 'show_atts_in_admin_order'), 10, 3 );
 		add_action( 'woocommerce_admin_order_item_headers', array( $this, 'admin_order_item_header' ) );
 		add_filter( 'woocommerce_product_settings', array( $this, 'add_options' ) );
+		add_action ( 'init', array( $this, 'if_show_atts_on_shop' ) );
 		
 	}
 
@@ -61,8 +62,9 @@ class WooCommerce_Show_Attributes {
 	* @param object, the product object.
 	* @param string, HTML element to wrap each attribute with, accepts span or li.
 	* @param boolean $visibility, whether to apply the visibility setting
+	* @param string , the location which function is called from
 	*/
-	private function the_attributes( $product, $element, $visibility = NULL ) {
+	private function the_attributes( $product, $element, $visibility = NULL, $location = NULL ) {
 	   
 		$attributes = $product->get_attributes();
 	   
@@ -77,6 +79,15 @@ class WooCommerce_Show_Attributes {
 			$element = 'span';
 		}
 
+		// if we are on shop page, check if option to show atts on shop is enabled.
+
+		if ( 'shop' == $location ) {
+
+			if ( ! get_option( 'woocommerce_show_attributes_on_shop' ) ) {
+				return;
+			}
+		}
+
 		$out = ('li' == $element) ? '<ul ' : '<span ';
 		
 		$out .= 'class="custom-attributes">';
@@ -89,7 +100,7 @@ class WooCommerce_Show_Attributes {
 				continue;
 			}
 				
-			// If on the single product page, apply the visibility setting
+			// If on the single product, apply the visibility setting
 			if ( $visibility && ! $attribute['is_visible'] ) {
 				continue;
 			}
@@ -204,6 +215,36 @@ class WooCommerce_Show_Attributes {
 		echo '<th class="wsa-custom-attributes">' . __( 'Attributes', 'woocommerce-show-attributes' ) . '</th>';
 	}
 
+	/**
+	 * Show the attributes on the main shop page.
+	 * @since 1.2.3
+	 */
+	public function show_atts_on_shop() {
+
+		global $product;
+		echo $this->the_attributes( $product, 'li', true, 'shop' );
+
+	}
+
+	/**
+	 * Check if option to show attributes on main shop is enabled.
+ 	 * @since 1.2.3
+	 */
+	public function if_show_atts_on_shop() {
+
+		$show = get_option( 'woocommerce_show_attributes_on_shop' );
+
+		// if option to show on shop page is enabled, do it
+		if ( 'above_price' == $show ) {
+			$action = 'woocommerce_after_shop_loop_item_title';
+		} elseif ( 'above_add2cart' == $show ) {
+			$action = 'woocommerce_after_shop_loop_item';
+
+		}
+		add_action ( $action, array( $this, 'show_atts_on_shop' ), 4 );
+		
+	}
+
    	/**
 	* The custom output for the Additional Information tab which now excludes our custom attributes.
 	*/
@@ -301,7 +342,7 @@ class WooCommerce_Show_Attributes {
 	}
 	
 	/*
-	* Add the option to WooCommerce products tab
+	* Add the options to WooCommerce products tab
 	*/
 	public function add_options( $settings ) {
 		$updated_settings = array();
@@ -316,7 +357,7 @@ class WooCommerce_Show_Attributes {
 						'id' => 'woocommerce_show_attributes_hide_labels',
 						'default' => 'no',
 						'type' => 'checkbox',
-						'desc' => __( 'Check this box to hide the attribute labels only show the attribute values.', 'woocommerce-show-attributes' )
+						'desc' => __( 'Check this box to hide the attribute labels and only show the attribute values.', 'woocommerce-show-attributes' )
 					);
 					$updated_settings[] = array(
 						'name' => __( 'Show Attributes in a span Element', 'woocommerce-show-attributes' ),
@@ -325,6 +366,22 @@ class WooCommerce_Show_Attributes {
 						'type' => 'checkbox',
 						'desc' => __( 'Check this box to use a span element instead of list bullets when showing product attributes on the single product page.', 'woocommerce-show-attributes' )
 					);
+					$updated_settings[] = array(
+						'name' => __( 'Show Attributes on Shop Page', 'woocommerce-show-attributes' ),
+						'desc' => __( 'Choose whether to show the product attributes on the main shop page.', 'woocommerce-show-attributes' ),
+						'id' => 'woocommerce_show_attributes_on_shop',
+						'default' => 'no',
+						'type' => 'select',
+						'options' => array(
+							'' => __( 'No', 'woocommerce-show-attributes' ),
+							'above_price' => __( 'Show them above the price', 'woocommerce-show-attributes' ),
+							'above_add2cart' => __( 'Show them above "Add to Cart"', 'woocommerce-show-attributes' ),
+						),
+						'desc_tip' => true,
+
+					);
+
+
 				}
 			}
 			$updated_settings[] = $section;
@@ -337,3 +394,14 @@ class WooCommerce_Show_Attributes {
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
 }
+
+/**
+ * Log my own debug messages
+ */
+function isa_log( $message ) {
+        if ( is_array( $message) || is_object( $message ) ) {
+           error_log( print_r( $message, true ) );
+       } else {
+           error_log( $message );
+       }
+ }
