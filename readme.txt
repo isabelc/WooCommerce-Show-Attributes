@@ -25,7 +25,7 @@ The custom product product attributes will **also** be displayed on:
 * Optional: Shop page (including product category and tag archives)
 
 
-See the [documentation[(http://isabelcastillo.com/docs/category/woocommerce-show-attributes).
+See the [documentation](http://isabelcastillo.com/docs/category/woocommerce-show-attributes).
 
 Fork it [on Github](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
