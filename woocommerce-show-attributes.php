@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: WooCommerce Show Attributes
-Plugin URI: http://isabelcastillo.com/show-woocommerce-product-attributes/
-Description: Show WooCommerce custom product attributes on the Product page, Cart page, admin Order Details page and emails.
-Version: 1.2.3-beta6
+Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
+Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
+Version: 1.2.3
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -242,7 +242,6 @@ class WooCommerce_Show_Attributes {
 			add_action ( 'woocommerce_after_shop_loop_item', array( $this, 'show_atts_on_shop' ), 4 );
 
 		}
-		
 	}
 
    	/**
@@ -345,6 +344,7 @@ class WooCommerce_Show_Attributes {
 	* Add the options to WooCommerce products tab
 	*/
 	public function add_options( $settings ) {
+
 		$updated_settings = array();
 		foreach ( $settings as $section ) {
 		
