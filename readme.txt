@@ -99,6 +99,7 @@ Add this CSS:
 = 1.2.3 =
 * New - Option to show the attributes on the shop pages, which also includes the product category and tag archives.
 * Fix - Typo in the description of one setting.
+* Maintenenace: Updated plugin URI and added link to new Documentation.
 
 = 1.2.2 =
 * Fix - Attribute labels were temporarily hidden leaving only the attribute value showing in version 1.2.1.
