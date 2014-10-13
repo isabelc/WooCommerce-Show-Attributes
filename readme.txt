@@ -4,11 +4,11 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.0
-Stable Tag: 1.2.2
+Stable Tag: 1.2.3
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Show WooCommerce custom product attributes on the Product page, Cart page, admin Order Details page and emails.
+Show WooCommerce custom product attributes on the Product, Shop, and Cart pages, admin Order Details page and emails.
 
 == Description ==
 
@@ -22,6 +22,10 @@ The custom product product attributes will **also** be displayed on:
 * New Order email that goes to the administrator
 * Receipt (Order Processing) email that goes to the customer
 * Order Complete email that goes to the customer
+* Optional: Shop page (including product category and tag archives)
+
+
+See the [documentation[(http://isabelcastillo.com/docs/category/woocommerce-show-attributes).
 
 Fork it [on Github](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
@@ -93,7 +97,7 @@ Add this CSS:
 == Changelog ==
 
 = 1.2.3 =
-* New - Option to show the attributes on the shop pages.
+* New - Option to show the attributes on the shop pages, which also includes the product category and tag archives.
 * Fix - Typo in the description of one setting.
 
 = 1.2.2 =
@@ -115,6 +119,8 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+= 1.2.3 =
+New option to show attributes on the shop pages, which also includes the product category and tag pages.
 
 = 1.2.2 =
 Fix - Attribute labels were temporarily hidden leaving only the attribute value showing in version 1.2.1.
