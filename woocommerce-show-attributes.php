@@ -226,7 +226,6 @@ class WooCommerce_Show_Attributes {
 		echo '<td class="grouped-product-custom-attributes">' . $this->the_attributes( $product, 'span' ) . '</td>';
 	}
 
-
 	/**
 	 * Show the attributes on the main shop page.
 	 * @since 1.2.3

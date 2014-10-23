@@ -43,7 +43,6 @@ This is a WooCommerce native option and is found on the Edit Product page, under
 
 If you uncheck that box, the attribute will not be shown on the single product page or Shop page. However, it will still show up on the rest of the places as described in the plugin description.
 
-
 5.  Optional settings are at WooCommerce Settings -> Product tab, under "Product Data".
 
 
