@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.2.3
+Version: 1.2.4-beta1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -45,8 +45,12 @@ class WooCommerce_Show_Attributes {
 		add_action( 'woocommerce_admin_order_item_values', array( $this, 'show_atts_in_admin_order'), 10, 3 );
 		add_action( 'woocommerce_admin_order_item_headers', array( $this, 'admin_order_item_header' ) );
 		add_filter( 'woocommerce_product_settings', array( $this, 'add_options' ) );
-		add_action ( 'init', array( $this, 'if_show_atts_on_shop' ) );
+		add_action( 'init', array( $this, 'if_show_atts_on_shop' ) );
 		
+		// @test
+		add_action( 'woocommerce_grouped_product_list_before_price', array( $this, 'show_atts_grouped_product' ) );
+
+
 	}
 
 	/**
@@ -214,6 +218,18 @@ class WooCommerce_Show_Attributes {
 	public function admin_order_item_header() {
 		echo '<th class="wsa-custom-attributes">' . __( 'Attributes', 'woocommerce-show-attributes' ) . '</th>';
 	}
+
+// @test
+	
+	/**
+	* Show product attributes on the Grouped Product page.
+	* @param object, the product object
+	*/
+	public function show_atts_grouped_product( $product ) {
+
+		echo '<td class="grouped-product-custom-attributes">' . $this->the_attributes( $product, 'span' ) . '</td>';
+	}
+
 
 	/**
 	 * Show the attributes on the main shop page.
