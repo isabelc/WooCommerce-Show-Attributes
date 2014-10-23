@@ -37,7 +37,12 @@ Fork it [on Github](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
 3.  Click "Activate" to activate the plugin.
 
-4.  Now your product attributes will be displayed in all the places described in the plugin description.
+4. For each attribute that you want to display, you must check the box for “Visible on the product page.” This has to be checked for the attributes to appear on the single product page and Shop page.
+
+This is a WooCommerce native option and is found on the Edit Product page, under the individual attribute settings.
+
+If you uncheck that box, the attribute will not be shown on the single product page or Shop page. However, it will still show up on the rest of the places as described in the plugin description.
+
 
 5.  Optional settings are at WooCommerce Settings -> Product tab, under "Product Data".
 
