@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.2.5=
+* Fix - Fixed a fatal error on the admin Edit Order page, above the item details. Please update.
+
 = 1.2.4 =
 * New - Show the attributes also on the Grouped product page, for each child product in the Grouped product.
 
@@ -127,6 +130,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+= 1.2.5 =
+Fixed a Fatal Error on the admin Edit Order page.
+
 = 1.2.3 =
 New option to show attributes on the shop pages, which also includes the product category and tag pages.
 
