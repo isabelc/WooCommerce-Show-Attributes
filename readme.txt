@@ -24,6 +24,7 @@ The custom product product attributes will **also** be displayed on:
 * Order Complete email that goes to the customer
 * Optional: Shop page (including product category and tag archives)
 
+Includes a .pot localization file to make this plugin WPML-ready.
 
 See the [documentation](http://isabelcastillo.com/docs/category/woocommerce-show-attributes).
 
@@ -102,6 +103,7 @@ Add this CSS:
 
 = 1.3 =
 * Fix - Removed an error that caused installation to fail.
+* New - Added a .pot localization file to make the plugin WPML ready.
 
 = 1.2.5=
 * Fix - Fixed a fatal error on the admin Edit Order page, above the item details. Please update.

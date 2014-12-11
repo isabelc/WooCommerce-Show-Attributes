@@ -8,6 +8,7 @@ Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
 Text Domain: woocommerce-show-attributes
+Domain Path: languages
 
 Copyright 2014 Isabel Castillo
 
