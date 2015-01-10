@@ -10,7 +10,7 @@ License: GPL2
 Text Domain: woocommerce-show-attributes
 Domain Path: languages
 
-Copyright 2014 Isabel Castillo
+Copyright 2015 Isabel Castillo
 
 WooCommerce Show Attributes is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
