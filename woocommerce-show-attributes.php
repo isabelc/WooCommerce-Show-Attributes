@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.3.1-beta-3.67
+Version: 1.3.1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -131,7 +131,7 @@ class WooCommerce_Show_Attributes {
 							$out .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
 							// Hide labels if they want to
 							if ( $hide_labels != 'yes' ) {
-								$out .= '<span class="attribute-label">' . $tax_label . ': </span> ';
+								$out .= '<span class="attribute-label">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . ': </span> ';
 							}
 							$out .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
 							if ('span' == $element) {
@@ -284,7 +284,7 @@ class WooCommerce_Show_Attributes {
 				if ( ! $product->has_dimensions() && ! $product->has_weight() ) {
 					unset( $tabs['additional_information'] );
 
-				} else { // @test
+				} else {
 					$tabs['additional_information']['callback'] = 'additional_info_tab_content';
 				}
 			} else {
@@ -352,8 +352,7 @@ class WooCommerce_Show_Attributes {
 // only if WooCommerce is active
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
-	// @test insert here
-   	/**
+	/**
 	* The custom output for the Additional Information tab which now excludes our custom attributes.
 	*/
 	function additional_info_tab_content() { ?>

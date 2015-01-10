@@ -103,6 +103,7 @@ Add this CSS:
 
 = 1.3.1 =
 * Fix - Fixed a fatal error that was breaking the Additional Information tab.
+* Tweak - Translate attribute labels.
 
 = 1.3 =
 * Fix - Removed an error that caused installation to fail.
