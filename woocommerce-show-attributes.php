@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.3.1-beta-3.66
+Version: 1.3.1-beta-3.67
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -258,57 +258,8 @@ class WooCommerce_Show_Attributes {
 
 		}
 	}
- /**
-* The custom output for the Additional Information tab which now excludes our custom attributes.
-*/
-public function additional_info_tab_content() { ?>
-<h2><?php _e( 'Additional Information', 'woocommerce-show-attributes' ); ?></h2>
-<table class="shop_attributes">
-<?php
-global $product;
-$has_row = false;
-$alt = 1;
-$attributes = $product->get_attributes();
-if ( $product->enable_dimensions_display() ) :
-if ( $product->has_weight() ) : $has_row = true; ?>
-<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
-<th><?php _e( 'Weight', 'woocommerce-show-attributes' ) ?></th>
-<td class="product_weight"><?php echo $product->get_weight() . ' ' . esc_attr( get_option( 'woocommerce_weight_unit' ) ); ?></td>
-</tr>
-<?php endif;
-if ( $product->has_dimensions() ) : $has_row = true; ?>
-<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
-<th><?php _e( 'Dimensions', 'woocommerce-show-attributes' ) ?></th>
-<td class="product_dimensions"><?php echo $product->get_dimensions(); ?></td>
-</tr>
-<?php endif;
-endif; ?>
-<?php foreach ( $attributes as $attribute ) :
-if ( empty( $attribute['is_visible'] ) || ( $attribute['is_taxonomy'] && ! taxonomy_exists( $attribute['name'] ) ) || empty( $attribute['is_variation'] ) ) {
-continue;
-} else {
-$has_row = true;
-}
-?>
-<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
-<th><?php echo wc_attribute_label( $attribute['name'] ); ?></th>
-<td><?php
-if ( $attribute['is_taxonomy'] ) {
-$values = wc_get_product_terms( $product->id, $attribute['name'], array( 'fields' => 'names' ) );
-echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attribute, $values );
-} else {
-// Convert pipes to commas and display values
-$values = array_map( 'trim', explode( WC_DELIMITER, $attribute['value'] ) );
-echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attribute, $values );
-}
-?></td>
-</tr>
-<?php endforeach; ?>
-</table>
-<?php
-}
-
-	/**
+ 
+ 	/**
 	* Customize the Additional Information tab to NOT show our custom attributes
 	*/
 	public function additional_info_tab( $tabs ) {
@@ -332,6 +283,7 @@ echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', '
 				// if no dimensions & no weight, unset the tab
 				if ( ! $product->has_dimensions() && ! $product->has_weight() ) {
 					unset( $tabs['additional_information'] );
+
 				} else { // @test
 					$tabs['additional_information']['callback'] = 'additional_info_tab_content';
 				}
@@ -399,7 +351,6 @@ echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', '
 }
 // only if WooCommerce is active
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-
 
 	// @test insert here
    	/**
