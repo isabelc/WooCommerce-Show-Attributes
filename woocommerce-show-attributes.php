@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.4.0-beta-1.15
+Version: 1.4.0-beta-1.16
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -33,8 +33,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 // if visibility setting for a custom attribute is not checked, then it will now be shown by this plugin. Not on the product pages, nor on the emails, nor in the admin order page.
 
 // I realize that many of you need more granular control over where to show the attributes....
-
-
 
 class WooCommerce_Show_Attributes {
 
@@ -168,7 +166,7 @@ class WooCommerce_Show_Attributes {
 
 		return $out;
 	}
-	
+
 	/**
 	* Show product attributes on the product page.
 	*
@@ -236,7 +234,6 @@ class WooCommerce_Show_Attributes {
 			}
 
 		}
-
 		return $out;
 	}
 
@@ -250,7 +247,6 @@ class WooCommerce_Show_Attributes {
 			$product = $cart_item_key['data'];
 			$out = $cart_item . '<br />' . $this->the_attributes( $product, 'span' );
 		}
-
 		return $out;
 	
 	}
@@ -363,6 +359,7 @@ class WooCommerce_Show_Attributes {
 	
 	/** 
 	 * Add settings to the WC Show Attributes section.
+	 * @since 1.4.0
 	 */
 	
 	public function all_settings( $settings, $current_section ) {
@@ -462,6 +459,7 @@ class WooCommerce_Show_Attributes {
 
 	/**
 	 * Add our settings section under the Products tab.
+	 * @since 1.4.0
 	 */
 	public function add_section( $sections ) {
 		$sections['wc_show_attributes'] = __( 'WC Show Attributes', 'woocommerce-show-attributes' );
@@ -529,7 +527,6 @@ class WooCommerce_Show_Attributes {
 	
 } // end class
 
-
 // only if WooCommerce is active
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
@@ -592,6 +589,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	} // end additional_info_tab_content()
 
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
+
 }
 
 
