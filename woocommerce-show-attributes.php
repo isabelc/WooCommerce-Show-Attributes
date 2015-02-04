@@ -551,7 +551,7 @@ class WooCommerce_Show_Attributes {
 				'desc'		=> __( 'Check this box to use a span element instead of list bullets when showing product attributes on the single product page.', 'woocommerce-show-attributes' )
 				),
 			array(
-				'name'		=> __( 'Remove Semicolon From Attribute Labels', 'woocommerce-show-attributes' ),
+				'name'		=> __( 'Remove Colon From Attribute Labels', 'woocommerce-show-attributes' ),
 				'id'		=> 'wcsa_remove_semicolon',
 				'default'	=> 'no',
 				'type'		=> 'checkbox',
