@@ -4,13 +4,15 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Show WooCommerce custom product attributes on the Product, Shop, and Cart pages, admin Order Details page and emails.
 
 == Description ==
+
+**New since version 1.4.0: ** Show the product weight and/or dimensions, too.
 
 This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. This does NOT affect nor include attributes which are used for Variations.
 
@@ -31,7 +33,7 @@ Includes a .pot localization file to make this plugin WPML-ready.
 
 See the [documentation](http://isabelcastillo.com/docs/category/woocommerce-show-attributes).
 
-Fork it [on Github](https://github.com/isabelc/WooCommerce-Show-Attributes).
+Fork it [on GitHub](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
 == Installation ==
 
@@ -43,7 +45,7 @@ Fork it [on Github](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
 4. For each attribute that you want to display, you must check the box for “Visible on the product page.” This is a WooCommerce native option and is found on the Edit Product page, under the individual attribute settings. If you uncheck that box, the attribute will not be shown.
 
-5.  Optional settings are at WooCommerce Settings -> Product tab, under "Product Data".
+5.  Optional settings are at WooCommerce Settings -> Products tab. Click on "WC Show Attributes" to see this plugin's options.
 
 
 == Frequently Asked Questions ==
@@ -52,6 +54,13 @@ Fork it [on Github](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
 For each attribute that you want to display, you must check the box for “Visible on the product page.” So, you can use that setting to show some attributes. Leave the box unchecked for the attributes that you do not want to show.
 
+= Why are my custom attributes NOT showing up? =
+
+For each attribute that you want to display, you must check the box for “Visible on the product page.” If you leave that box unchecked, that attribute will not be shown by this plugin.
+
+= Can I show the product weight and/or dimensions above the Add to Cart button?
+
+Yes, since version 1.4.0.
 
 = How do I hide the attribute labels and only show the values? = 
 
@@ -104,9 +113,12 @@ Add this CSS:
 3. The attributes under the product name on the Customer's Order Details page on the front end.
 
 == Changelog ==
-
-= 1.3.2 =
-* New - The setting to make an attribute Visible on the product page will now apply to all areas of this plugin. So if you leave that option unchecked, the attribute will no longer show up in any of the places that this plugin shows them in. i.e. the Cart, and the customer's View Order page.
+= 1.4.0 =
+* New - 15 new options are available to give you more granular control over where to show the attributes.
+* New - The options have moved to their own page at WooCommerce Settings, Products tab, click on "WC Show Attributes" to see all the options.
+* New - Options to show the product weight and dimensions in various places.
+* Fix - Attributes were displayed on the Cart page even thought the setting to make an attribute visible was unchecked.
+* Maintenance - Updated .pot translation file.
 
 = 1.3.1 =
 * Fix - Fixed a fatal error that was breaking the Additional Information tab.
@@ -146,6 +158,8 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+= 1.4.0 =
+15 new options are available to give you more control over where to show the attributes.
 = 1.2.5 =
 Fixed a Fatal Error on the admin Edit Order page.
 
