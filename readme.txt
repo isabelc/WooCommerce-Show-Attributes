@@ -16,7 +16,7 @@ Show WooCommerce custom product attributes on the Product, Shop, and Cart pages,
 
 This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. This does NOT affect nor include attributes which are used for Variations.
 
-The custom product product attributes will **also** be displayed on these (with option to turn them off):
+The custom product product attributes will **also** be displayed at these locations (with option to turn them off):
 
 * Grouped product page
 * Shop page (including product category and tag archives)
@@ -114,10 +114,10 @@ Add this CSS:
 
 == Changelog ==
 = 1.4.0 =
-* New - 15 new options are available to give you more granular control over where to show the attributes.
+* New - 16 new options are available to give you more granular control over where to show the attributes.
 * New - The options have moved to their own page at WooCommerce Settings, Products tab, click on "WC Show Attributes" to see all the options.
 * New - Options to show the product weight and dimensions in various places.
-* Fix - Attributes were displayed on the Cart page even thought the setting to make an attribute visible was unchecked.
+* Fix - Attributes were displayed on the Cart page even though the setting to make an attribute visible was unchecked.
 * Maintenance - Updated .pot translation file.
 
 = 1.3.1 =
@@ -159,7 +159,7 @@ Add this CSS:
 * Initial release.
 == Upgrade Notice ==
 = 1.4.0 =
-15 new options are available to give you more control over where to show the attributes.
+16 new options are available to give you more control over where to show the attributes.
 = 1.2.5 =
 Fixed a Fatal Error on the admin Edit Order page.
 
