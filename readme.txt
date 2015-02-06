@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Show WooCommerce custom product attributes on the Product, Shop, and Cart pages,
 
 == Description ==
 
-**New since version 1.4.0: ** Show the product weight and/or dimensions, too.
+**New since version 1.4.0:** Show the product weight and/or dimensions, too.
 
 This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. This does NOT affect nor include attributes which are used for Variations.
 
@@ -58,9 +58,9 @@ For each attribute that you want to display, you must check the box for “Visib
 
 For each attribute that you want to display, you must check the box for “Visible on the product page.” If you leave that box unchecked, that attribute will not be shown by this plugin.
 
-= Can I show the product weight and/or dimensions above the Add to Cart button?
+= Can I show the product weight and/or dimensions above the Add to Cart button? =
 
-Yes, since version 1.4.0.
+Yes, since version 1.4.0. See this plugin's settings page to enable this.
 
 = How do I hide the attribute labels and only show the values? = 
 
@@ -113,6 +113,9 @@ Add this CSS:
 3. The attributes under the product name on the Customer's Order Details page on the front end.
 
 == Changelog ==
+= 1.4.1 =
+* Fix - Avoid PHP errors when calling get_attributes.
+
 = 1.4.0 =
 * New - 16 new options are available to give you more granular control over where to show the attributes.
 * New - The options have moved to their own page at WooCommerce Settings, Products tab, click on "WC Show Attributes" to see all the options.
@@ -158,8 +161,12 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+= 1.4.1 =
+Fix - Avoid PHP errors when calling get_attributes.
+
 = 1.4.0 =
 16 new options are available to give you more control over where to show the attributes.
+
 = 1.2.5 =
 Fixed a Fatal Error on the admin Edit Order page.
 

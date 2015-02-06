@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.4.0
+Version: 1.4.1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -66,146 +66,145 @@ class WooCommerce_Show_Attributes {
 	* Returns the HTML string for the custom product attributes.
 	* This does not affect nor include attributes which are used for Variations.
 	* 
-	* @param object $product The product object.
+	* @param object $product The product object. Default null to avoid errors.
 	* @param string $element HTML element to wrap each attribute with, accepts span or li.
 	* @param boolean $show_weight whether to show the product weight
 	* @param booleam $show_dimensions whether to show the product dimensions
 	*/
-	public function the_attributes( $product, $element, $show_weight = null, $show_dimensions = null ) {
+	public function the_attributes( $product = null, $element, $show_weight = null, $show_dimensions = null ) {
 
-		if ( $show_weight ) {
-			// get weight
-			if ( $product->has_weight() ) {
-				$weight = $product->get_weight();
-				$unit = esc_attr( get_option( 'woocommerce_weight_unit' ) );
-			}
-		}
+		$out = '';
+		$out_middle = '';
 
-		if ( $show_dimensions ) {
-			// get dimensions
-			if ( $product->has_dimensions() ) {
-				$dimensions = $product->get_dimensions();
-			}
-		}
-	   
-   		$semicolon = get_option( 'wcsa_remove_semicolon' ) == 'yes' ? ' ' : ' : ';
+		if ( isset( $product ) ) {
+			if ( is_object( $product ) ) {
 
-		$attributes = $product->get_attributes();
-	   
-		if ( ! $attributes ) {
-			return;
-		}
-
-		$hide_labels = get_option( 'woocommerce_show_attributes_hide_labels' );
-		
-		// check if they choose span element over li
-		if ( get_option( 'woocommerce_show_attributes_span' ) == 'yes' ) {
-			$element = 'span';
-		}
-
-		$out = ('li' == $element) ? '<ul ' : '<span ';
-		
-		$out .= 'class="custom-attributes">';
-		
-		foreach ( $attributes as $attribute ) {
-		
-			// skip variations
-			if ( $attribute['is_variation'] ) {
-				continue;
-			}
-				
-			// honor the visibility setting
-			if ( ! $attribute['is_visible'] ) {
-				continue;
-			}
-
-			if ( $attribute['is_taxonomy'] ) {
-				
-				$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
-				if ( ! empty( $terms ) ) {
-					if ( ! is_wp_error( $terms ) ) {
-	
-						// get the taxonomy
-						$tax = $terms[0]->taxonomy;
-						 
-						// get the tax object
-						$tax_object = get_taxonomy($tax);
-						 
-						// get tax label
-						if ( isset ($tax_object->labels->name) ) {
-							$tax_label = $tax_object->labels->name;
-						} elseif ( isset( $tax_object->label ) ) {
-							$tax_label = $tax_object->label;
-						}
-						 
-						foreach ( $terms as $term ) {
-						
-							$out .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
-							// Hide labels if they want to
-							if ( $hide_labels != 'yes' ) {
-								$out .= '<span class="attribute-label">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . $semicolon . ' </span> ';
-							}
-							$out .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
-							if ('span' == $element) {
-								$out .= '<br />';
-							}
-						  
-						}
+				if ( $show_weight ) {
+					if ( $product->has_weight() ) {
+						$weight = $product->get_weight();
+						$unit = esc_attr( get_option( 'woocommerce_weight_unit' ) );
 					}
 				}
-				   
-			} else {
-			
-				$out .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
+
+				if ( $show_dimensions ) {
+					if ( $product->has_dimensions() ) {
+						$dimensions = $product->get_dimensions();
+					}
+				}
+			   
+		   		$colon = get_option( 'wcsa_remove_semicolon' ) == 'yes' ? ' ' : ' : ';
+
+				$attributes = $product->get_attributes();
+				if ( ! $attributes ) {
+					return;
+				}
+
+				$hide_labels = get_option( 'woocommerce_show_attributes_hide_labels' );
 				
-				// Hide labels if they want to
-				if ( $hide_labels != 'yes' ) {
-					$out .= '<span class="attribute-label">' . $attribute['name'] . $semicolon . ' </span> ';
+				// check if they choose span element over li
+				if ( get_option( 'woocommerce_show_attributes_span' ) == 'yes' ) {
+					$element = 'span';
 				}
-				$out .= '<span class="attribute-value">' . $attribute['value'] . '</span></' . $element. '>';
-				if ('span' == $element) {
-					$out .= '<br />';
+				
+				foreach ( $attributes as $attribute ) {
+
+					// skip variations
+					if ( $attribute['is_variation'] ) {
+						continue;
+					}
+						
+					// honor the visibility setting
+					if ( ! $attribute['is_visible'] ) {
+						continue;
+					}
+
+					if ( $attribute['is_taxonomy'] ) {
+						
+						$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
+						if ( ! empty( $terms ) ) {
+							if ( ! is_wp_error( $terms ) ) {
+			
+								// get the taxonomy
+								$tax = $terms[0]->taxonomy;
+								// get the tax object
+								$tax_object = get_taxonomy($tax);
+								// get tax label
+								if ( isset ($tax_object->labels->name) ) {
+									$tax_label = $tax_object->labels->name;
+								} elseif ( isset( $tax_object->label ) ) {
+									$tax_label = $tax_object->label;
+								}
+								
+								foreach ( $terms as $term ) {
+								
+									$out_middle .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
+									// Hide labels if they want to
+									if ( $hide_labels != 'yes' ) {
+										$out_middle .= '<span class="attribute-label">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . $colon . ' </span> ';
+									}
+									$out_middle .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
+									if ('span' == $element) {
+										$out_middle .= '<br />';
+									}
+								  
+								}
+							}
+						}
+						   
+					} else {
+					
+						$out_middle .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
+						
+						// Hide labels if they want to
+						if ( $hide_labels != 'yes' ) {
+							$out_middle .= '<span class="attribute-label">' . $attribute['name'] . $colon . ' </span> ';
+						}
+						$out_middle .= '<span class="attribute-value">' . $attribute['value'] . '</span></' . $element. '>';
+						if ('span' == $element) {
+							$out_middle .= '<br />';
+						}
+
+					}
+
+				} // ends foreach attribute
+
+				// add weight and dimensions if they opted in
+
+				if ( ! empty( $weight ) ) {
+					$unit = empty( $unit ) ? '' : $unit;
+					// weight
+					$out_middle .= '<' . $element. ' class="show-attributes-weight">';
+					// Hide labels if they want to
+					if ( $hide_labels != 'yes' ) {
+						$out_middle .= '<span class="attribute-label">' . __( 'Weight', 'woocommerce-show-attributes' ) . $colon . ' </span> ';
+					}
+					$out_middle .= '<span class="attribute-value">' . $weight . ' ' . $unit . ' </span></' . $element. '>';
+					if ('span' == $element) {
+						$out_middle .= '<br />';
+					}
 				}
 
-			}
+				if ( ! empty( $dimensions ) ) {
+					// dimensions
+					$out_middle .= '<' . $element. ' class="show-attributes-dimensions">';
+					// Hide labels if they want to
+					if ( $hide_labels != 'yes' ) {
+						$out_middle .= '<span class="attribute-label">' . __( 'Dimensions', 'woocommerce-show-attributes' ) . $colon . ' </span> ';
+					}
+					$out_middle .= '<span class="attribute-value">' . $dimensions . '</span></' . $element. '>';
+					if ('span' == $element) {
+						$out_middle .= '<br />';
+					}
+				}
 
-		} // ends foreach attribute
-
-		// add weight and dimensions if they opted in
-
-		if ( ! empty( $weight ) ) {
-			$unit = empty( $unit ) ? '' : $unit;
-			// weight
-			$out .= '<' . $element. ' class="show-attributes-weight">';
-			// Hide labels if they want to
-			if ( $hide_labels != 'yes' ) {
-				$out .= '<span class="attribute-label">' . __( 'Weight', 'woocommerce-show-attributes' ) . $semicolon . ' </span> ';
-			}
-			$out .= '<span class="attribute-value">' . $weight . ' ' . $unit . ' </span></' . $element. '>';
-			if ('span' == $element) {
-				$out .= '<br />';
-			}
-		}
-
-		if ( ! empty( $dimensions ) ) {
-			// dimensions
-			$out .= '<' . $element. ' class="show-attributes-dimensions">';
-			// Hide labels if they want to
-			if ( $hide_labels != 'yes' ) {
-				$out .= '<span class="attribute-label">' . __( 'Dimensions', 'woocommerce-show-attributes' ) . $semicolon . ' </span> ';
-			}
-			$out .= '<span class="attribute-value">' . $dimensions . '</span></' . $element. '>';
-			if ('span' == $element) {
-				$out .= '<br />';
+				if ( $out_middle ) {
+					$out = ('li' == $element) ? '<ul ' : '<span ';
+					$out .= 'class="custom-attributes">' . $out_middle;
+					$out .= ('li' == $element) ? '</ul>' : '</span>';
+				}
+			
 			}
 		}
-
-		$out .= ('li' == $element) ? '</ul>' : '</span>';
-		
-		if ('span' == $element) {
-			$out .= '<br />';
-		}
-
 		return $out;
 	}
 
@@ -291,10 +290,13 @@ class WooCommerce_Show_Attributes {
 			// Only add atts to customer emails, and included here is the customer View Order page.
 
 			if ( $is_customer_email ) {
-				$product = get_product( $item['product_id'] );
-				$out = $item_name . '<br />' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions ) . '<br />';
-			}
 
+				$product = get_product( $item['product_id'] );
+				$atts = $this->the_attributes( $product, 'span', $show_weight, $show_dimensions );
+				if ( $atts ) {
+					$out = $item_name . '<br />' . $atts . '<br />';
+				}
+			}
 		}
 		return $out;
 	}
@@ -555,7 +557,7 @@ class WooCommerce_Show_Attributes {
 				'id'		=> 'wcsa_remove_semicolon',
 				'default'	=> 'no',
 				'type'		=> 'checkbox',
-				'desc'		=> __( 'Check this box to remove the semicolon from the attribute labels. Useful for RTL languages.', 'woocommerce-show-attributes' )
+				'desc'		=> __( 'Check this box to remove the colon from the attribute labels. Useful for RTL languages.', 'woocommerce-show-attributes' )
 				),
 			array( 'type' => 'sectionend', 'id' => 'wcsa_style' ),
 			// weight and Dimensions
@@ -680,9 +682,7 @@ class WooCommerce_Show_Attributes {
 		if ( get_option( 'wcsa_dimensions_admin_email' ) == 'yes' ) {
 			$show_dimensions = true;
 		}
-
 		$out = $item_name;
-
 		if ( get_option( 'wcsa_admin_email' ) != 'no' ) {
 
 			// get the name of templates used for this email call
@@ -700,22 +700,23 @@ class WooCommerce_Show_Attributes {
 			}
 
 			// Only add atts to admin emails.
-
 			$is_admin_email = false;
-
 			foreach ( $templates_used as $template_name ) {
 				// check each file name for '/emails/admin-'
 				if ( strpos( $template_name, '/emails/admin-' ) !== false ) {
-
 					// Eureka! We have an admin email
 					$is_admin_email = true;
 				}
 			}
 
 			if ( $is_admin_email ) {
-
 				$product = get_product( $item['product_id'] );
-				$out = $item_name . '<br />' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions ) . '<br />';
+				$atts = $this->the_attributes( $product, 'span', $show_weight, $show_dimensions );
+				if ( $atts ) {
+					$out = $item_name . '<br />' . $atts . '<br />';
+				}
+
+				
 			}
 		}
 		
@@ -793,4 +794,17 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
 
+}
+
+/**
+ * Log my own debug messages
+ */
+function isa_log( $message ) {
+    if (WP_DEBUG === true) {
+        if ( is_array( $message) || is_object( $message ) ) {
+            error_log( print_r( $message, true ) );
+        } else {
+            error_log( $message );
+        }
+    }
 }
