@@ -115,7 +115,8 @@ Add this CSS:
 == Changelog ==
 
 = 1.4.2 =
-* New - The attributes in the emails are now vertically aligned.
+* New - The attribute values in the emails are now vertically aligned.
+* Fix - Output attributes as comma separated list instead of separate lines.
 
 = 1.4.1 =
 * Fix - Avoid PHP errors when calling get_attributes.

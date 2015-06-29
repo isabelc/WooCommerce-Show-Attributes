@@ -62,7 +62,7 @@ class WooCommerce_Show_Attributes {
 	}
 	
 	/**
-	* Show the attributes.
+	* Get the attributes.
 	* 
 	* Returns the HTML string for the custom product attributes.
 	* This does not affect nor include attributes which are used for Variations.
@@ -106,7 +106,7 @@ class WooCommerce_Show_Attributes {
 				if ( get_option( 'woocommerce_show_attributes_span' ) == 'yes' ) {
 					$element = 'span';
 				}
-				
+
 				foreach ( $attributes as $attribute ) {
 
 					// skip variations
@@ -120,7 +120,7 @@ class WooCommerce_Show_Attributes {
 					}
 
 					if ( $attribute['is_taxonomy'] ) {
-						
+				
 						$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
 						if ( ! empty( $terms ) ) {
 							if ( ! is_wp_error( $terms ) ) {
@@ -136,18 +136,24 @@ class WooCommerce_Show_Attributes {
 									$tax_label = $tax_object->label;
 								}
 								
+								$out_middle .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . '">';
+								// Hide labels if they want to
+								if ( $hide_labels != 'yes' ) {
+									$out_middle .= '<span class="attribute-label">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . $colon . ' </span> ';
+								}
+								$out_middle .= '<span class="attribute-value">';
+
+
+								$tax_terms = array();
 								foreach ( $terms as $term ) {
-								
-									$out_middle .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . ' ' . esc_attr( $term->slug ) . '">';
-									// Hide labels if they want to
-									if ( $hide_labels != 'yes' ) {
-										$out_middle .= '<span class="attribute-label">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . $colon . ' </span> ';
-									}
-									$out_middle .= '<span class="attribute-value">' . $term->name . '</span></' . $element . '>';
-									if ('span' == $element) {
-										$out_middle .= '<br />';
-									}
-								  
+								    array_push( $tax_terms, $term->name );
+								}
+								$out_middle .= implode(', ', $tax_terms);
+							
+
+ 								$out_middle .= '</span></' . $element . '>';
+								if ('span' == $element) {
+									$out_middle .= '<br />';
 								}
 							}
 						}
@@ -165,11 +171,12 @@ class WooCommerce_Show_Attributes {
 							$out_middle .= '<br />';
 						}
 
+
 					}
 
 				} // ends foreach attribute
 
-				// add weight and dimensions if they opted in
+				// Add weight and dimensions if they opted in
 
 				if ( ! empty( $weight ) ) {
 					$unit = empty( $unit ) ? '' : $unit;
