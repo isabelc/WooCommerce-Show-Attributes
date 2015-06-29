@@ -70,9 +70,10 @@ class WooCommerce_Show_Attributes {
 	* @param object $product The product object. Default null to avoid errors.
 	* @param string $element HTML element to wrap each attribute with, accepts span or li.
 	* @param boolean $show_weight whether to show the product weight
-	* @param booleam $show_dimensions whether to show the product dimensions
+	* @param boolean $show_dimensions whether to show the product dimensions
+	* @param boolean $skip_atts whethetr to skip the attributes and only honor weight and dimensions
 	*/
-	public function the_attributes( $product = null, $element, $show_weight = null, $show_dimensions = null ) {
+	public function the_attributes( $product = null, $element, $show_weight = null, $show_dimensions = null, $skip_atts = null ) {
 
 		$out = '';
 		$out_middle = '';
@@ -94,87 +95,88 @@ class WooCommerce_Show_Attributes {
 				}
 			   
 		   		$colon = get_option( 'wcsa_remove_semicolon' ) == 'yes' ? ' ' : ' : ';
-
-				$attributes = $product->get_attributes();
-				if ( ! $attributes ) {
-					return;
-				}
-
-				$hide_labels = get_option( 'woocommerce_show_attributes_hide_labels' );
-				
+				$hide_labels = get_option( 'woocommerce_show_attributes_hide_labels' );		   		
 				// check if they choose span element over li
 				if ( get_option( 'woocommerce_show_attributes_span' ) == 'yes' ) {
 					$element = 'span';
 				}
 
-				foreach ( $attributes as $attribute ) {
+		   		if ( ! $skip_atts ) {
 
-					// skip variations
-					if ( $attribute['is_variation'] ) {
-						continue;
-					}
-						
-					// honor the visibility setting
-					if ( ! $attribute['is_visible'] ) {
-						continue;
+					$attributes = $product->get_attributes();
+					if ( ! $attributes ) {
+						return;
 					}
 
-					if ( $attribute['is_taxonomy'] ) {
-				
-						$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
-						if ( ! empty( $terms ) ) {
-							if ( ! is_wp_error( $terms ) ) {
-			
-								// get the taxonomy
-								$tax = $terms[0]->taxonomy;
-								// get the tax object
-								$tax_object = get_taxonomy($tax);
-								// get tax label
-								if ( isset ($tax_object->labels->name) ) {
-									$tax_label = $tax_object->labels->name;
-								} elseif ( isset( $tax_object->label ) ) {
-									$tax_label = $tax_object->label;
-								}
-								
-								$out_middle .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . '">';
-								// Hide labels if they want to
-								if ( $hide_labels != 'yes' ) {
-									$out_middle .= '<span class="attribute-label">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . $colon . ' </span> ';
-								}
-								$out_middle .= '<span class="attribute-value">';
+					foreach ( $attributes as $attribute ) {
 
-
-								$tax_terms = array();
-								foreach ( $terms as $term ) {
-								    array_push( $tax_terms, $term->name );
-								}
-								$out_middle .= implode(', ', $tax_terms);
+						// skip variations
+						if ( $attribute['is_variation'] ) {
+							continue;
+						}
 							
+						// honor the visibility setting
+						if ( ! $attribute['is_visible'] ) {
+							continue;
+						}
 
- 								$out_middle .= '</span></' . $element . '>';
-								if ('span' == $element) {
-									$out_middle .= '<br />';
+						if ( $attribute['is_taxonomy'] ) {
+					
+							$terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
+							if ( ! empty( $terms ) ) {
+								if ( ! is_wp_error( $terms ) ) {
+				
+									// get the taxonomy
+									$tax = $terms[0]->taxonomy;
+									// get the tax object
+									$tax_object = get_taxonomy($tax);
+									// get tax label
+									if ( isset ($tax_object->labels->name) ) {
+										$tax_label = $tax_object->labels->name;
+									} elseif ( isset( $tax_object->label ) ) {
+										$tax_label = $tax_object->label;
+									}
+									
+									$out_middle .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . '">';
+									// Hide labels if they want to
+									if ( $hide_labels != 'yes' ) {
+										$out_middle .= '<span class="attribute-label">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . $colon . ' </span> ';
+									}
+									$out_middle .= '<span class="attribute-value">';
+
+
+									$tax_terms = array();
+									foreach ( $terms as $term ) {
+									    array_push( $tax_terms, $term->name );
+									}
+									$out_middle .= implode(', ', $tax_terms);
+								
+
+	 								$out_middle .= '</span></' . $element . '>';
+									if ('span' == $element) {
+										$out_middle .= '<br />';
+									}
 								}
 							}
-						}
-						   
-					} else {
-					
-						$out_middle .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
+							   
+						} else {
 						
-						// Hide labels if they want to
-						if ( $hide_labels != 'yes' ) {
-							$out_middle .= '<span class="attribute-label">' . $attribute['name'] . $colon . ' </span> ';
+							$out_middle .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
+							
+							// Hide labels if they want to
+							if ( $hide_labels != 'yes' ) {
+								$out_middle .= '<span class="attribute-label">' . $attribute['name'] . $colon . ' </span> ';
+							}
+							$out_middle .= '<span class="attribute-value">' . $attribute['value'] . '</span></' . $element. '>';
+							if ('span' == $element) {
+								$out_middle .= '<br />';
+							}
+
+
 						}
-						$out_middle .= '<span class="attribute-value">' . $attribute['value'] . '</span></' . $element. '>';
-						if ('span' == $element) {
-							$out_middle .= '<br />';
-						}
 
-
-					}
-
-				} // ends foreach attribute
+					} // ends foreach attribute
+				}
 
 				// Add weight and dimensions if they opted in
 
@@ -235,10 +237,17 @@ class WooCommerce_Show_Attributes {
 			$show_dimensions = true;
 		}		
 
+		// add a flag to skip the attributes.
+		// this way i'll know to only honor weight and dimensions
 		if ( get_option( 'wcsa_product' ) != 'no') {
-			global $product;
-			echo $this->the_attributes( $product, 'li', $show_weight, $show_dimensions );
+			$skip_atts = null;
+		} else {
+			$skip_atts = true;
 		}
+
+		global $product;
+		echo $this->the_attributes( $product, 'li', $show_weight, $show_dimensions, $skip_atts );
+
 	}
 
 	/**
@@ -265,47 +274,50 @@ class WooCommerce_Show_Attributes {
 		$out = $item_name;
 
 		if ( get_option( 'wcsa_customer_order_emails' ) != 'no' ) {
+			$skip_atts = null;
+		} else {
+			$skip_atts = true;
+		}
 
-			// get the name of templates used for this email call
-			$templates_used = array();
-			foreach ( debug_backtrace() as $called_file ) {
-				foreach ( $called_file as $index ) {
-					if ( is_array( $index ) ) { // avoid errors
-						if ( ! empty( $index[0] ) ) {
-							if ( is_string( $index[0] ) ) { // eliminate long arrays
-								$templates_used[] = $index[0];
-							}
+		// get the name of templates used for this email call
+		$templates_used = array();
+		foreach ( debug_backtrace() as $called_file ) {
+			foreach ( $called_file as $index ) {
+				if ( is_array( $index ) ) { // avoid errors
+					if ( ! empty( $index[0] ) ) {
+						if ( is_string( $index[0] ) ) { // eliminate long arrays
+							$templates_used[] = $index[0];
 						}
 					}
 				}
 			}
+		}
 
 			
-			// Do not add atts to admin emails
+		// Do not add atts to admin emails
 
-			$is_customer_email = true;
+		$is_customer_email = true;
 
-			foreach ( $templates_used as $template_name ) {
+		foreach ( $templates_used as $template_name ) {
 
-				// check each file name for '/emails/admin-'
-				if ( strpos( $template_name, '/emails/admin-' ) !== false ) {
+			// check each file name for '/emails/admin-'
+			if ( strpos( $template_name, '/emails/admin-' ) !== false ) {
 
-					// admin email so do not add atts 
-					$is_customer_email = false;
-				}
-			}
-
-			// Only add atts to customer emails, and included here is the customer View Order page.
-
-			if ( $is_customer_email ) {
-
-				$product = get_product( $item['product_id'] );
-				$atts = $this->the_attributes( $product, 'span', $show_weight, $show_dimensions );
-				if ( $atts ) {
-					$out = $item_name . '<br />' . $atts . '<br />';
-				}
+				// admin email so do not add atts 
+				$is_customer_email = false;
 			}
 		}
+
+		// Only add atts to customer emails, and included here is the customer View Order page.
+
+		if ( $is_customer_email ) {
+			$product = get_product( $item['product_id'] );
+			$atts = $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts );
+			if ( $atts ) {
+				$out = $item_name . '<br />' . $atts . '<br />';
+			}
+		}
+
 		return $out;
 	}
 
@@ -325,9 +337,14 @@ class WooCommerce_Show_Attributes {
 
 		$out = $cart_item;
 		if ( get_option( 'wcsa_cart' ) != 'no' ) {
-			$product = $cart_item_key['data'];
-			$out = $cart_item . '<br />' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions );
+			$skip_atts = null;
+		} else {
+			$skip_atts = true;
 		}
+
+		$product = $cart_item_key['data'];
+		$out = $cart_item . '<br />' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts );
+		
 		return $out;
 	
 	}
@@ -351,9 +368,12 @@ class WooCommerce_Show_Attributes {
 		}
 
 		if ( get_option( 'wcsa_admin_order_details' ) != 'no' ) {
-			if ( is_object($product) ) {
-				echo '<td><div class="view">' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions ) . '</div></td>';
-			}
+			$skip_atts = null;
+		} else {
+			$skip_atts = true;
+		}
+		if ( is_object($product) ) {
+			echo '<td><div class="view">' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) . '</div></td>';
 		}
 	}
 
@@ -385,8 +405,11 @@ class WooCommerce_Show_Attributes {
 			$show_dimensions = true;
 		}
 		if ( get_option( 'wcsa_product' ) != 'no') {
-			echo '<td class="grouped-product-custom-attributes">' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions ) . '</td>';
+			$skip_atts = null;
+		} else {
+			$skip_atts = true;
 		}
+		echo '<td class="grouped-product-custom-attributes">' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) . '</td>';
 	}
 
 	/**
@@ -692,40 +715,42 @@ class WooCommerce_Show_Attributes {
 		}
 		$out = $item_name;
 		if ( get_option( 'wcsa_admin_email' ) != 'no' ) {
+			$skip_atts = null;
+		} else {
+			$skip_atts = true;
+		}
 
-			// get the name of templates used for this email call
-			$templates_used = array();
-			foreach ( debug_backtrace() as $called_file ) {
-				foreach ( $called_file as $index ) {
-					if ( is_array( $index ) ) { // avoid errors
-						if ( ! empty( $index[0] ) ) {
-							if ( is_string( $index[0] ) ) { // eliminate long arrays
-								$templates_used[] = $index[0];
-							}
+		// get the name of templates used for this email call
+		$templates_used = array();
+		foreach ( debug_backtrace() as $called_file ) {
+			foreach ( $called_file as $index ) {
+				if ( is_array( $index ) ) { // avoid errors
+					if ( ! empty( $index[0] ) ) {
+						if ( is_string( $index[0] ) ) { // eliminate long arrays
+							$templates_used[] = $index[0];
 						}
 					}
 				}
 			}
+		}
 
-			// Only add atts to admin emails.
-			$is_admin_email = false;
-			foreach ( $templates_used as $template_name ) {
-				// check each file name for '/emails/admin-'
-				if ( strpos( $template_name, '/emails/admin-' ) !== false ) {
-					// Eureka! We have an admin email
-					$is_admin_email = true;
-				}
+		// Only add atts to admin emails.
+		$is_admin_email = false;
+		foreach ( $templates_used as $template_name ) {
+			// check each file name for '/emails/admin-'
+			if ( strpos( $template_name, '/emails/admin-' ) !== false ) {
+				// Eureka! We have an admin email
+				$is_admin_email = true;
+			}
+		}
+
+		if ( $is_admin_email ) {
+			$product = get_product( $item['product_id'] );
+			$atts = $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts );
+			if ( $atts ) {
+				$out = $item_name . '<br />' . $atts . '<br />';
 			}
 
-			if ( $is_admin_email ) {
-				$product = get_product( $item['product_id'] );
-				$atts = $this->the_attributes( $product, 'span', $show_weight, $show_dimensions );
-				if ( $atts ) {
-					$out = $item_name . '<br />' . $atts . '<br />';
-				}
-
-				
-			}
 		}
 		
 		return $out;

@@ -117,6 +117,7 @@ Add this CSS:
 = 1.4.2 =
 * New - The attribute values in the emails are now vertically aligned.
 * Fix - Output attributes as comma separated list instead of separate lines.
+* Fix - Weight and Dimensions would not show up in locations enabled by the settings, unless the option the Show Attributes in that location was also enabled. 
 
 = 1.4.1 =
 * Fix - Avoid PHP errors when calling get_attributes.
