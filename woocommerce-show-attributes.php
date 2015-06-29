@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.4.1
+Version: 1.4.2-beta4
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -50,6 +50,7 @@ class WooCommerce_Show_Attributes {
 		add_filter( 'woocommerce_get_sections_products', array( $this, 'add_section' ) );
 		add_action( 'init', array( $this, 'if_show_atts_on_shop' ) );
 		add_action( 'woocommerce_grouped_product_list_before_price', array( $this, 'show_atts_grouped_product' ) );
+		add_filter( 'woocommerce_email_styles', array( $this, 'email_style' ) );
 	
 	}
 
@@ -724,8 +725,13 @@ class WooCommerce_Show_Attributes {
 	
 	}
 
-
-
+	/**
+	 * Add CSS for emails.
+	 */
+	public function email_style( $css ) {
+		$css .= '.custom-attributes {display: table}.custom-attributes > span {display: table-row}.custom-attributes .attribute-label{white-space: nowrap}.custom-attributes .attribute-value {padding-left: 8px;display: table-cell}.custom-attributes br {display: none}';
+		return $css;
+	}
 	
 } // end class
 
