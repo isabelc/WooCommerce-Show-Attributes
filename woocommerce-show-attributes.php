@@ -71,9 +71,10 @@ class WooCommerce_Show_Attributes {
 	* @param string $element HTML element to wrap each attribute with, accepts span or li.
 	* @param boolean $show_weight whether to show the product weight
 	* @param boolean $show_dimensions whether to show the product dimensions
-	* @param boolean $skip_atts whethetr to skip the attributes and only honor weight and dimensions
+	* @param boolean $skip_atts whether to skip the attributes and only honor weight and dimensions
+	* @param mixed $single_product true when on single product page
 	*/
-	public function the_attributes( $product = null, $element, $show_weight = null, $show_dimensions = null, $skip_atts = null ) {
+	public function the_attributes( $product = null, $element, $show_weight = null, $show_dimensions = null, $skip_atts = null, $single_product = null ) {
 
 		$out = '';
 		$out_middle = '';
@@ -144,15 +145,27 @@ class WooCommerce_Show_Attributes {
 									}
 									$out_middle .= '<span class="attribute-value">';
 
-
 									$tax_terms = array();
 									foreach ( $terms as $term ) {
-									    array_push( $tax_terms, $term->name );
+
+										$single_term = $term->name;
+
+										// Show terms as links? 
+
+										if ( $single_product ) {
+
+											if ( get_option( 'wcsa_terms_as_links' ) == 'yes' ) {
+	    										$term_link = get_term_link( $term );
+												if ( ! is_wp_error( $term_link ) ) {
+													$single_term = '<a href="' . esc_url( $term_link ) . '">' . $term->name . '</a>';
+												}
+											}
+										}
+									    array_push( $tax_terms, $single_term );
 									}
 									$out_middle .= implode(', ', $tax_terms);
-								
-
 	 								$out_middle .= '</span></' . $element . '>';
+
 									if ('span' == $element) {
 										$out_middle .= '<br />';
 									}
@@ -246,7 +259,7 @@ class WooCommerce_Show_Attributes {
 		}
 
 		global $product;
-		echo $this->the_attributes( $product, 'li', $show_weight, $show_dimensions, $skip_atts );
+		echo $this->the_attributes( $product, 'li', $show_weight, $show_dimensions, $skip_atts, true );
 
 	}
 
@@ -668,7 +681,21 @@ class WooCommerce_Show_Attributes {
 				'type'		=> 'checkbox',
 				'desc'		=> __( 'Show product dimensions on the Order Details page on the back end, listed under "Order Items".', 'woocommerce-show-attributes' )
 				),			
-			array( 'type' => 'sectionend', 'id' => 'wc_show_weight_dimensions' )
+			array( 'type' => 'sectionend', 'id' => 'wc_show_weight_dimensions' ),
+			// Extra Options
+			array(
+				'title'		=> __( 'Extra Options', 'woocommerce-show-attributes' ),
+				'type'		=> 'title',
+				'id'		=> 'wcsa_extra_options'
+				),
+			array(
+				'name'		=> __( 'Show Attribute Terms as Links', 'woocommerce-show-attributes' ),
+				'id'		=> 'wcsa_terms_as_links',
+				'default'	=> 'no',
+				'type'		=> 'checkbox',
+				'desc'		=> __( 'On the single product page, show the attribute terms as links. They will link to their archive pages. This only works with Global Attributes. Global Attributes are created in Products -> Attributes.', 'woocommerce-show-attributes' )
+				),
+				array( 'type' => 'sectionend', 'id' => 'wcsa_extra_options' ),			
 			);
 
 			return $settings_wsa;

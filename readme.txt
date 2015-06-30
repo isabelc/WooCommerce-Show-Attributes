@@ -116,6 +116,7 @@ Add this CSS:
 
 = 1.4.2 =
 * New - The attribute values in the emails are now vertically aligned.
+* New - New option to show attribute terms as links. This only applies to Global Attributes. Global Attributes are created in Products -> Attributes.
 * Fix - Output attributes as comma separated list instead of separate lines.
 * Fix - Weight and Dimensions would not show up in locations enabled by the settings, unless the option the Show Attributes in that location was also enabled. 
 
