@@ -116,6 +116,7 @@ Add this CSS:
 
 = 1.5 =
 * Fix - Fixed one possible incompatibility with plugins that manage custom Woocommerce Tabs.
+* Localization - Fixed an error that prevented several strings from being translated.
 
 = 1.4.2 =
 * New - The attribute values in the emails are now vertically aligned.

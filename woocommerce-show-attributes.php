@@ -653,7 +653,7 @@ class WooCommerce_Show_Attributes {
 				'desc'		=> __( 'Show product weight on customer order, invoice, and receipt emails, and on the customer\'s View Order page.', 'woocommerce-show-attributes' )
 				),
 			array(
-				'name'		=> __( 'Show Dimensions on Customer Order Emails', 'wooc			array(ommerce-show-attributes' ),
+				'name'		=> __( 'Show Dimensions on Customer Order Emails', 'woocommerce-show-attributes' ),
 				'id'		=> 'wcsa_dimensions_customer_order_emails',
 				'default'	=> 'no',
 				'type'		=> 'checkbox',
