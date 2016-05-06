@@ -114,6 +114,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.5 =
+* Fix - Fixed one possible incompatibility with plugins that manage custom Woocommerce Tabs.
+
 = 1.4.2 =
 * New - The attribute values in the emails are now vertically aligned.
 * New - New option to show attribute terms as links. This only applies to Global Attributes. Global Attributes are created in Products -> Attributes.
