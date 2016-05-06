@@ -1,0 +1,278 @@
+# Copyright (C) 2014 WooCommerce Show Attributes
+# This file is distributed under the same license as the WooCommerce Show Attributes package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Show Attributes\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/woocommerce-show-attributes\n"
+"POT-Creation-Date: 2015-02-03 23:36-0500\n"
+"PO-Revision-Date: 2015-03-06 10:41+0200\n"
+"Last-Translator: Arhi Paivarinta <info@swratkaisut.com>\n"
+"Language-Team: Arhi Paivarinta <info@swratkaisut.com>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_x;_e;_ex;_n\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:155
+#, php-format
+msgid "%s"
+msgstr "%s"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:191
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:756
+msgid "Weight"
+msgstr "Paino"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:204
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:764
+msgid "Dimensions"
+msgstr "Mitat"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:366
+msgid "Attributes"
+msgstr "Ominaisuudet"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:487
+msgid "WooCommerce Show Attributes Options"
+msgstr "WooCommerce Näytä ominaisuudet -lisäosan asetukset"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:487
+msgid "Where would you like to show your custom product attributes?"
+msgstr "Missä haluat näyttää WC tuotteiden mukautetut ominaisuudet?"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:489
+msgid "Show Attributes on Product Page"
+msgstr "Näytä ominaisuudet tuotesivulla"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:493
+msgid "Show attributes on the single product above Add To Cart, and on Grouped products."
+msgstr "Näytä tuotteen ominaisuudet Lisää ostoskoriin -painikkeen yllä ja joukkotuotteille."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:496
+msgid "Show Attributes on Shop Pages"
+msgstr "Näytä ominaisuudet kauppa sivuilla"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:497
+msgid "Whether to show attributes on the main shop page and shop category pages."
+msgstr "Näytetäänkö tuotteen ominaisuudet kaupan etusivulla ja osastojen sivuilla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:503
+msgid "No"
+msgstr "Ei"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:504
+msgid "Show them above the price"
+msgstr "Näytä ne hinnan yläpuolella"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:505
+msgid "Show them above \"Add to Cart\""
+msgstr "Näytä ne Lisää ostoskoriin -painikkeen yläpuolella"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:510
+msgid "Show Attributes on Cart Page"
+msgstr "Näytä ominaisuudet ostoskori sivulla"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:514
+msgid "Show attributes on the cart and checkout pages."
+msgstr "Näytä tuotteen ominaisuudet ostoskori- ja kassa sivuilla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:517
+msgid "Show Attributes on Customer Order Emails"
+msgstr "Näytä ominaisuudet sähköposteissa asiakkaalle"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:521
+msgid ""
+"Show attributes on customer order, invoice, and receipt emails, and on the customer's View "
+"Order page."
+msgstr ""
+"Näytä tuotteen ominaisuudet asiakkaan Tilausta käsitellään-, Tilaus valmis- ja Lasku "
+"asiakkaalle -sähköposteissa sekä asiakkaan tarkastele tilausta -sivulla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:524
+msgid "Show Attributes on Admin New Order Email"
+msgstr "Näytä ominaisuudet Uusi tilaus -sähköpostissa myyjälle"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:528
+msgid "Show attributes on the New Order email which goes to the Administrator."
+msgstr ""
+"Näytä tuotteen ominaisuudet Uusi tilaus -sähköpostissa joka lähetetään kaupan "
+"ylläpitäjälle."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:531
+msgid "Show Attributes on Admin Order Details Page"
+msgstr "Näytä ominaisuudet myyjän tilauksen tiedot -sivulla"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:535
+msgid ""
+"Show attributes on the Order Details page on the back end, listed under \"Order Items\"."
+msgstr ""
+"Näytä tuotteen ominaisuudet tilauksen tiedot -sivulla hallintapaneelissa, kohdassa "
+"\"Tilauksen tuotteet\"."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:541
+msgid "Style Options"
+msgstr "Muotoiluasetukset"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:542
+msgid "These options affect the style or appearance of the attributes."
+msgstr "Nämä valinnat vaikuttavat tapaan kuinka ominaisuudet muotoillaan."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:547
+msgid "Hide the Labels When Showing Product Attributes"
+msgstr "Piilota tuotteen ominaisuuden nimi"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:551
+msgid "Check this box to hide the attribute labels and only show the attribute values."
+msgstr ""
+"Kun valintaruutu on valittuna, ominaisuuden nimet piilotetaan ja vain ominaisuuden arvot "
+"näytetään."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:554
+msgid "Show Attributes in a span Element"
+msgstr "Muotoile ominaisuudet \"span\" koodeilla"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:558
+msgid ""
+"Check this box to use a span element instead of list bullets when showing product "
+"attributes on the single product page."
+msgstr ""
+"Kun valintaruutu on valittuna, käytetään \"span\" muotoilua eikä luettelomerkkejä tuotteen "
+"ominaisuuksien esittämisessä tuotesivulla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:561
+msgid "Remove Semicolon From Attribute Labels"
+msgstr "Poista kaksoispiste ominaisuuden nimen perästä"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:565
+msgid ""
+"Check this box to remove the semicolon from the attribute labels. Useful for RTL languages."
+msgstr ""
+"Kun valintaruutu on valittuna, ominaisuuden nimen perästä poistetaan kaksoispiste. "
+"Hyödyllinen kielissä, jotka kirjoitetaan oikealta vasemmalle (RTL)."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:570
+msgid "Show Weight and Dimensions"
+msgstr "Näytä paino ja mitat"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:571
+msgid "These options let you show the product weight and dimensions in various places."
+msgstr "Näillä valinnoilla vaikutetaan tuotteen painon ja mittojen näkymiseen."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:576
+msgid "Show Weight on Product Page Above Add To Cart"
+msgstr "Näytä tuotesivulla paino, Lisää ostoskoriin -painikkeen yläpuolella"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:580
+msgid ""
+"Show product weight on the single product pages, and Grouped products, above Add To Cart "
+"instead of in the Additional Information tab."
+msgstr ""
+"Näytä tuotteen paino tuotesivulla sekä joukkotuotteille, Lisää ostoskoriin -painikkeen "
+"yläpuolella eikä Lisätietoja välilehdellä."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:583
+msgid "Show Dimensions on Product Page Above Add To Cart"
+msgstr "Näytä tuotesivulla mitat, Lisää ostoskoriin -painikkeen yläpuolella"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:587
+msgid ""
+"Show product dimensions on the single product pages, and Grouped products, above Add To "
+"Cart instead of in the Additional Information tab."
+msgstr ""
+"Näytä tuotteen mitat tuotesivulla sekä joukkotuotteille, Lisää ostoskoriin -painikkeen "
+"yläpuolella eikä Lisätietoja välilehdellä."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:590
+msgid "Show Weight on Cart Page"
+msgstr "Näytä ostoskori sivulla paino"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:594
+msgid "Show product weight on the cart and checkout pages."
+msgstr "Näytä tuotteen paino ostoskori- ja kassasivuilla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:597
+msgid "Show Dimensions on Cart Page"
+msgstr "Näytä ostoskori sivulla mitat"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:601
+msgid "Show product dimensions on the cart and checkout pages."
+msgstr "Näytä tuotteen mitat ostoskori- ja kassasivuilla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:604
+msgid "Show Weight on Customer Order Emails"
+msgstr "Näytä paino asiakkaan sähköposteissa"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:608
+msgid ""
+"Show product weight on customer order, invoice, and receipt emails, and on the customer's "
+"View Order page."
+msgstr ""
+"Näytä tuotteen paino asiakkaan Tilausta käsitellään-, Tilaus valmis- ja Lasku asiakkaalle -"
+"sähköposteissa sekä asiakkaan tarkastele tilausta -sivulla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:611
+msgid "Show Dimensions on Customer Order Emails"
+msgstr "Näytä mitat asiakkaan sähköposteissa"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:615
+msgid ""
+"Show product dimensions on customer order, invoice, and receipt emails, and on the "
+"customer's View Order page."
+msgstr ""
+"Näytä tuotteen mitat asiakkaan Tilausta käsitellään-, Tilaus valmis- ja Lasku asiakkaalle -"
+"sähköposteissa sekä asiakkaan tarkastele tilausta -sivulla."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:618
+msgid "Show Weight on Admin New Order Email"
+msgstr "Näytä paino Uusi tilaus -sähköpostissa myyjälle"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:622
+msgid "Show product weight on the New Order email which goes to the Administrator."
+msgstr ""
+"Näytä tuotteen paino Uusi tilaus -sähköpostissa joka lähetetään kaupan ylläpitäjälle."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:625
+msgid "Show Dimensions on Admin New Order Email"
+msgstr "Näytä mitat Uusi tilaus -sähköpostissa myyjälle"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:629
+msgid "Show product dimensions on the New Order email which goes to the Administrator."
+msgstr ""
+"Näytä tuotteen mitat Uusi tilaus -sähköpostissa joka lähetetään kaupan ylläpitäjälle."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:632
+msgid "Show Weight on Admin Order Details Page"
+msgstr "Näytä paino myyjän Tilauksen tiedot -sivulla"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:636
+msgid ""
+"Show product weight on the Order Details page on the back end, listed under \"Order Items"
+"\"."
+msgstr ""
+"Näytä tuotteen paino tilauksen tiedot -sivulla hallintapaneelissa, kohdassa \"Tilauksen "
+"tuotteet\"."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:639
+msgid "Show Dimensions on Admin Order Details Page"
+msgstr "Näytä mitat myyjän Tilauksen tiedot -sivulla"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:643
+msgid ""
+"Show product dimensions on the Order Details page on the back end, listed under \"Order "
+"Items\"."
+msgstr ""
+"Näytä tuotteen mitat tilauksen tiedot -sivulla hallintapaneelissa, kohdassa \"Tilauksen "
+"tuotteet\"."
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:664
+msgid "WC Show Attributes"
+msgstr "WC näytä ominaisuudet"
+
+#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:744
+msgid "Additional Information"
+msgstr "Lisätietoja"
