@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.5.alpha41
+Version: 1.5.alpha42
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -148,7 +148,7 @@ class WooCommerce_Show_Attributes {
 									$tax_terms = array();
 									foreach ( $terms as $term ) {
 
-										$single_term = $term->name;
+										$single_term = sprintf( __( '%s', 'woocommerce-show-attributes' ), $term->name );
 
 										// Show terms as links?
 
@@ -157,7 +157,7 @@ class WooCommerce_Show_Attributes {
 											if ( get_option( 'wcsa_terms_as_links' ) == 'yes' ) {
 	    										$term_link = get_term_link( $term );
 												if ( ! is_wp_error( $term_link ) ) {
-													$single_term = '<a href="' . esc_url( $term_link ) . '">' . $term->name . '</a>';
+													$single_term = '<a href="' . esc_url( $term_link ) . '">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $term->name ) . '</a>';
 												}
 											}
 										}
@@ -174,13 +174,13 @@ class WooCommerce_Show_Attributes {
 
 						} else {
 
-							$out_middle .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sanitize_title($attribute['value']) . '">';
+							$out_middle .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sprintf( __( '%s', 'woocommerce-show-attributes' ), sanitize_title( $attribute['value'] ) ) . '">';
 
 							// Hide labels if they want to
 							if ( $hide_labels != 'yes' ) {
-								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . $attribute['name'] . '</span>' . $colon . ' </span> ';
+								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $attribute['name'] ) . '</span>' . $colon . ' </span> ';
 							}
-							$out_middle .= '<span class="attribute-value">' . $attribute['value'] . '</span></' . $element. '>';
+							$out_middle .= '<span class="attribute-value">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $attribute['value'] ) . '</span></' . $element. '>';
 							if ('span' == $element) {
 								$out_middle .= '<br />';
 							}
