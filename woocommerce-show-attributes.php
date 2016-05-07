@@ -456,7 +456,7 @@ class WooCommerce_Show_Attributes {
 	* Customize the Additional Information tab to NOT show our custom attributes
 	*/
 	public function additional_info_tab( $tabs ) {
-		
+
 		global $product;
 
 		if ( ! is_object( $product ) ) {
@@ -467,15 +467,20 @@ class WooCommerce_Show_Attributes {
 
 			// check if any of the attributes are variations
 			$attributes = $product->get_attributes();
+
 			$need_tab = array();
 			foreach ( $attributes as $attribute ) {
-				$need_tab[] = empty($attribute['is_variation']) ? '' : 1;
+
+				if ( ( ! empty( $attribute['is_variation'] ) ) && ( ! empty( $attribute['is_visible'] ) ) ) {
+					$need_tab[] = 1;					
+				} else {
+					$need_tab[] = '';
+				}
 
 			}
 
-			// if all $need_tab array values are empty, none of the attributes are variations
+			// if all $need_tab array values are empty, none of the attributes are visible variations
 			// so we would not need the tab except for dimensions or weight
-
 			if ( count(array_filter($need_tab)) == 0 ) {
 				// if no dimensions & no weight, unset the tab
 				if ( ! $product->has_dimensions() && ! $product->has_weight() ) {
@@ -485,12 +490,13 @@ class WooCommerce_Show_Attributes {
 				} elseif ( get_option( 'wcsa_weight_product' ) == 'yes' && get_option( 'wcsa_dimensions_product' ) == 'yes' ) {
 						unset( $tabs['additional_information'] );
 				} else {
+
 					// we have to show weight and/or height so do tab
 					$tabs['additional_information']['callback'] = 'additional_info_tab_content';
 				}
 			} else {
 
-				// we have variations so do tab
+				// we have visible variations so do tab
 				$tabs['additional_information']['callback'] = 'additional_info_tab_content';
 			}
 		} else {
@@ -499,6 +505,7 @@ class WooCommerce_Show_Attributes {
 			if ( $product->has_dimensions() || $product->has_weight() ) {
 
 				if ( get_option( 'wcsa_weight_product' ) == 'yes' && get_option( 'wcsa_dimensions_product' ) == 'yes' ) {
+
 					// weight and dimensions have been moved up so unset tab
 					unset( $tabs['additional_information'] );
 				} else {

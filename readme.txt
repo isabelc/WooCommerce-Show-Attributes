@@ -114,8 +114,10 @@ Add this CSS:
 
 = 1.5 =
 * Fix - Fixed one possible incompatibility with plugins that manage custom Woocommerce Tabs.
+* Fix - Blank tab no longer appears if a shop item has at one attribute that enables Used For Variations.
 * Localization - Fixed an error that prevented several strings from being translated.
 * Localization - Added Finnish language translation. Thanks to Arhi Paivarinta.
+* Tweak - Display adjustments - Separated .attribute-label from the colon by wrapping the label's content in another span element. Removed the space before the colon. Removed obsolete white space. Thanks to amielucha.
 
 = 1.4.2 =
 * New - The attribute values in the emails are now vertically aligned.
