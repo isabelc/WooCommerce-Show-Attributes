@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.5
+Version: 1.5.1-beta3
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -275,6 +275,10 @@ class WooCommerce_Show_Attributes {
 	* @since 1.4.0
 	*/
 	public function show_atts_on_customer_order( $item_name, $item ) {
+		// Do not show this on the admin main Orders page
+		if ( function_exists( 'get_current_screen' ) && 'edit-shop_order' == get_current_screen()->id ) {
+			return $item_name;
+		}
 
 		$show_weight = null;
 		if ( get_option( 'wcsa_weight_customer_order_emails' ) == 'yes' ) {
