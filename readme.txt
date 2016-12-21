@@ -27,7 +27,7 @@ The custom product product attributes will **also** be displayed at these locati
 * New Order email that goes to the administrator
 * Admin Order Details page on the back end, under Order Items
 
-Includes a .pot localization file to make this plugin WPML-ready.
+Includes a .pot localization file to make this plugin WPML-ready. Also includes language translations files for the Finnish language.
 
 See the [documentation](http://isabelcastillo.com/docs/category/woocommerce-show-attributes).
 
