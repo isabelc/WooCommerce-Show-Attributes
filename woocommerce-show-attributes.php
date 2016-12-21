@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WooCommerce Show Attributes
-Plugin URI: http://isabelcastillo.com/docs/category/woocommerce-show-attributes
+Plugin URI: https://isabelcastillo.com/docs/category/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.5.1-beta3
+Version: 1.5.1
 Author: Isabel Castillo
-Author URI: http://isabelcastillo.com
+Author URI: https://isabelcastillo.com
 License: GPL2
 Text Domain: woocommerce-show-attributes
 Domain Path: languages

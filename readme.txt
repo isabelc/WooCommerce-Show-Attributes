@@ -117,6 +117,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.5.1 =
+* Fix - Removed attributes from the admin main Orders page because it was ruining the HTML for the item names.
+
 = 1.5 =
 * Fix - Fixed one possible incompatibility with plugins that manage custom Woocommerce Tabs.
 * Fix - Blank tab no longer appears if a shop item has at one attribute that enables Used For Variations.
@@ -179,6 +182,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+= 1.5.1 =
+Fix - Removed attributes from the admin main Orders page because it was ruining the HTML for the item names.
+
 = 1.4.1 =
 Fix - Avoid PHP errors when calling get_attributes.
 
