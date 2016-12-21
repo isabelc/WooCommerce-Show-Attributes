@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
-Tested up to: 4.6
-Stable tag: 1.5
+Tested up to: 4.7
+Stable tag: 1.5.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,15 +35,20 @@ Fork it [on GitHub](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
 == Installation ==
 
-1.  Download the plugin `.zip` file.
+**Install and Activate**
 
-2.  Go to **Plugins -> Add New -> Upload** to upload the `.zip` file.
+1. Install and activate the plugin in your WordPress dashboard by going to Plugins –> Add New. 
+2. Search for “WooCommerce Show Attributes” to find the plugin.
+3. When you see WooCommerce Show Attributes, click “Install Now” to install the plugin.
+4. Click “Activate” to activate the plugin.
 
-3.  Click "Activate" to activate the plugin.
+**Setup**
 
-4. For each attribute that you want to display, you must check the box for “Visible on the product page.” This is a WooCommerce native option and is found on the Edit Product page, under the individual attribute settings. If you uncheck that box, the attribute will not be shown.
+1.  After you activate the plugin, your custom product attributes will automatically be shown at certain locations. ([see which locations](https://isabelcastillo.com/docs/getting-started)).
 
-5.  Optional settings are at WooCommerce Settings -> Products tab. Click on "WC Show Attributes" to see this plugin's options.
+2.  If you want to show the attributes on the single product page, do this: For each attribute that you want to display, you must check the box for “Visible on the product page.” This is a WooCommerce native option and is found on the Edit Product page (for each product), under the individual attribute settings. If you uncheck that box, the attribute will not be shown for that product.
+
+3.  Optional settings are at WooCommerce Settings -> Products tab. Click on "WC Show Attributes" to see this plugin's options.
 
 
 == Frequently Asked Questions ==
