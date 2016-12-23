@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.7
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.5.2 =
+* Fix - Improve use of get_current_screen since it returns NULL in some cases.
+
 = 1.5.1 =
 * Fix - Removed attributes from the admin main Orders page because it was ruining the HTML for the item names.
 
@@ -182,6 +185,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+= 1.5.2 =
+Fix - Improve use of get_current_screen since it returns NULL in some cases.
+
 = 1.5.1 =
 Fix - Removed attributes from the admin main Orders page because it was ruining the HTML for the item names.
 
