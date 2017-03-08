@@ -482,7 +482,6 @@ class WooCommerce_Show_Attributes {
 				// if no dimensions & no weight, unset the tab
 				if ( ! $product->has_dimensions() && ! $product->has_weight() ) {
 					unset( $tabs['additional_information'] );
-
 				// if dimensions and weight have both been moved up by option, unset the tab
 				} elseif ( get_option( 'wcsa_weight_product' ) == 'yes' && get_option( 'wcsa_dimensions_product' ) == 'yes' ) {
 						unset( $tabs['additional_information'] );
@@ -492,7 +491,6 @@ class WooCommerce_Show_Attributes {
 					$tabs['additional_information']['callback'] = 'additional_info_tab_content';
 				}
 			} else {
-
 				// we have visible variations so do tab
 				$tabs['additional_information']['callback'] = 'additional_info_tab_content';
 			}
@@ -827,9 +825,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					</tr>
 				<?php endif;
 			}
-		endif; ?>
+		endif;
 
-		<?php foreach ( $attributes as $attribute ) : ?>
+		foreach ( $attributes as $attribute ) : 
+			// Skip atts that are shown above add to cart
+			if ( get_option( 'wcsa_product', 'no' ) == 'yes') {
+				continue;
+			}
+		?>
 			<tr>
 			<th><?php echo esc_html( wc_attribute_label( $attribute['name'] ) ); ?></th>
 			<td><?php
