@@ -1,10 +1,10 @@
 === WooCommerce Show Attributes ===
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
-Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
+Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
-Tested up to: 4.7
-Stable tag: 1.5.2
+Tested up to: 4.8-alpha-40251
+Stable tag: 1.5.3
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,6 +114,12 @@ Add this CSS:
 3. The attributes under the product name on the Customer's Order Details page on the front end.
 
 == Changelog ==
+
+= 1.5.3 =
+* New - Change the title for the settings section to just "Show Attributes."
+* New - Update the Additional Information tab to match the WooCommerce core tab.
+* Tweak - The plugin textdomain should be loaded on the init action rather than the plugins_loaded action.
+* Tweak - Updated links to plugin URI and plugin documentation.
 
 = 1.5.2 =
 * Fix - Improve use of get_current_screen since it returns NULL in some cases.
