@@ -137,17 +137,17 @@ class WooCommerce_Show_Attributes {
 										$tax_label = $tax_object->label;
 									}
 
-									$out_middle .= '<' . $element . ' class="' . esc_attr( $attribute['name'] ) . '">';
+									$out_middle .= '<' . esc_attr( $element ) . ' class="' . esc_attr( $attribute['name'] ) . '">';
 									// Hide labels if they want to
 									if ( $hide_labels != 'yes' ) {
-										$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $tax_label ) . '</span>' . $colon . ' </span> ';
+										$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $tax_label ) ) . '</span>' . $colon . ' </span> ';
 									}
 									$out_middle .= '<span class="attribute-value">';
 
 									$tax_terms = array();
 									foreach ( $terms as $term ) {
 
-										$single_term = sprintf( __( '%s', 'woocommerce-show-attributes' ), $term->name );
+										$single_term = sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $term->name ) );
 
 										// Show terms as links?
 
@@ -156,14 +156,14 @@ class WooCommerce_Show_Attributes {
 											if ( get_option( 'wcsa_terms_as_links' ) == 'yes' ) {
 	    										$term_link = get_term_link( $term );
 												if ( ! is_wp_error( $term_link ) ) {
-													$single_term = '<a href="' . esc_url( $term_link ) . '">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $term->name ) . '</a>';
+													$single_term = '<a href="' . esc_url( $term_link ) . '">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $term->name ) ) . '</a>';
 												}
 											}
 										}
 									    array_push( $tax_terms, $single_term );
 									}
 									$out_middle .= implode(', ', $tax_terms);
-	 								$out_middle .= '</span></' . $element . '>';
+	 								$out_middle .= '</span></' . esc_attr( $element ) . '>';
 
 									if ('span' == $element) {
 										$out_middle .= '<br />';
@@ -173,17 +173,16 @@ class WooCommerce_Show_Attributes {
 
 						} else {
 
-							$out_middle .= '<' . $element. ' class="' . sanitize_title($attribute['name']) . ' ' . sprintf( __( '%s', 'woocommerce-show-attributes' ), sanitize_title( $attribute['value'] ) ) . '">';
+							$out_middle .= '<' . esc_attr( $element ) . ' class="' . sanitize_title( $attribute['name'] ) . ' ' . sprintf( __( '%s', 'woocommerce-show-attributes' ), sanitize_title( $attribute['value'] ) ) . '">';
 
 							// Hide labels if they want to
 							if ( $hide_labels != 'yes' ) {
-								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $attribute['name'] ) . '</span>' . $colon . ' </span> ';
+								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $attribute['name'] ) ) . '</span>' . $colon . ' </span> ';
 							}
-							$out_middle .= '<span class="attribute-value">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), $attribute['value'] ) . '</span></' . $element. '>';
+							$out_middle .= '<span class="attribute-value">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $attribute['value'] ) ) . '</span></' . esc_attr( $element ) . '>';
 							if ('span' == $element) {
 								$out_middle .= '<br />';
 							}
-
 
 						}
 
@@ -195,25 +194,25 @@ class WooCommerce_Show_Attributes {
 				if ( ! empty( $weight ) ) {
 					$unit = empty( $unit ) ? '' : $unit;
 					// weight
-					$out_middle .= '<' . $element. ' class="show-attributes-weight">';
+					$out_middle .= '<' . esc_attr( $element ) . ' class="show-attributes-weight">';
 					// Hide labels if they want to
 					if ( $hide_labels != 'yes' ) {
 						$out_middle .= '<span class="attribute-label">' . __( 'Weight', 'woocommerce-show-attributes' ) . $colon . ' </span> ';
 					}
-					$out_middle .= '<span class="attribute-value">' . $weight . ' ' . $unit . ' </span></' . $element. '>';
-					if ('span' == $element) {
+					$out_middle .= '<span class="attribute-value">' . esc_html( $weight ) . ' ' . esc_html( $unit ) . ' </span></' . esc_attr( $element ) . '>';
+					if ( 'span' == $element ) {
 						$out_middle .= '<br />';
 					}
 				}
 
 				if ( ! empty( $dimensions ) ) {
 					// dimensions
-					$out_middle .= '<' . $element. ' class="show-attributes-dimensions">';
+					$out_middle .= '<' . esc_attr( $element ) . ' class="show-attributes-dimensions">';
 					// Hide labels if they want to
 					if ( $hide_labels != 'yes' ) {
 						$out_middle .= '<span class="attribute-label">' . __( 'Dimensions', 'woocommerce-show-attributes' ) . $colon . ' </span> ';
 					}
-					$out_middle .= '<span class="attribute-value">' . $dimensions . '</span></' . $element. '>';
+					$out_middle .= '<span class="attribute-value">' . esc_html( $dimensions ) . '</span></' . esc_attr( $element ) . '>';
 					if ('span' == $element) {
 						$out_middle .= '<br />';
 					}
@@ -238,7 +237,6 @@ class WooCommerce_Show_Attributes {
 	*/
 
 	public function show_atts_on_product_page() {
-
 		$show_weight = null;
 		if ( get_option( 'wcsa_weight_product' ) == 'yes' ) {
 			$show_weight = true;
@@ -258,7 +256,7 @@ class WooCommerce_Show_Attributes {
 		}
 
 		global $product;
-		echo $this->the_attributes( $product, 'li', $show_weight, $show_dimensions, $skip_atts, true );
+		echo wp_kses_post( $this->the_attributes( $product, 'li', $show_weight, $show_dimensions, $skip_atts, true ) );
 
 	}
 
@@ -333,7 +331,7 @@ class WooCommerce_Show_Attributes {
 			$product = get_product( $item['product_id'] );
 			$atts = $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts );
 			if ( $atts ) {
-				$out = $item_name . '<br />' . $atts . '<br />';
+				$out = $item_name . '<br />' . wp_kses_post( $atts ) . '<br />';
 			}
 		}
 
@@ -344,7 +342,6 @@ class WooCommerce_Show_Attributes {
 	* Show product attributes on the Cart page.
 	*/
 	public function show_atts_on_cart( $cart_item, $cart_item_key ) {
-
 		$show_weight = null;
 		if ( get_option( 'wcsa_weight_cart' ) == 'yes' ) {
 			$show_weight = true;
@@ -362,7 +359,7 @@ class WooCommerce_Show_Attributes {
 		}
 
 		$product = $cart_item_key['data'];
-		$out = $cart_item . '<br />' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts );
+		$out = $cart_item . '<br />' . wp_kses_post( $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) );
 
 		return $out;
 
@@ -376,7 +373,6 @@ class WooCommerce_Show_Attributes {
 	* @param integer, product id
 	*/
 	public function show_atts_in_admin_order( $product, $item, $item_id ) {
-
 		$show_weight = null;
 		if ( get_option( 'wcsa_weight_admin_order_details' ) == 'yes' ) {
 			$show_weight = true;
@@ -392,7 +388,7 @@ class WooCommerce_Show_Attributes {
 			$skip_atts = true;
 		}
 		if ( is_object($product) ) {
-			echo '<td><div class="view">' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) . '</div></td>';
+			echo '<td><div class="view">' . wp_kses_post( $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) ) . '</div></td>';
 		}
 	}
 
@@ -400,9 +396,7 @@ class WooCommerce_Show_Attributes {
 	* Add Attributes to the Order Items header on the admin Order Details page.
 	*/
 	public function admin_order_item_header() {
-
 		if ( get_option( 'wcsa_admin_order_details' ) != 'no' ) {
-
 			echo '<th class="wsa-custom-attributes">' . __( 'Attributes', 'woocommerce-show-attributes' ) . '</th>';
 		}
 	}
@@ -414,7 +408,6 @@ class WooCommerce_Show_Attributes {
 	* @since 1.2.4
 	*/
 	public function show_atts_grouped_product( $product ) {
-
 		$show_weight = null;
 		if ( get_option( 'wcsa_weight_product' ) == 'yes' ) {
 			$show_weight = true;
@@ -428,7 +421,7 @@ class WooCommerce_Show_Attributes {
 		} else {
 			$skip_atts = true;
 		}
-		echo '<td class="grouped-product-custom-attributes">' . $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) . '</td>';
+		echo '<td class="grouped-product-custom-attributes">' . wp_kses_post( $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) ) . '</td>';
 	}
 
 	/**
@@ -437,7 +430,7 @@ class WooCommerce_Show_Attributes {
 	 */
 	public function show_atts_on_shop() {
 			global $product;
-			echo $this->the_attributes( $product, 'li' );
+			echo wp_kses_post( $this->the_attributes( $product, 'li' ) );
 	}
 
 	/**
@@ -445,7 +438,6 @@ class WooCommerce_Show_Attributes {
  	 * @since 1.2.3
 	 */
 	public function if_show_atts_on_shop() {
-
 		$show = get_option( 'woocommerce_show_attributes_on_shop' );
 
 		// if option to show on shop page is enabled, do it
@@ -462,7 +454,6 @@ class WooCommerce_Show_Attributes {
 	* Customize the Additional Information tab to NOT show our custom attributes
 	*/
 	public function additional_info_tab( $tabs ) {
-
 		global $product;
 
 		if ( ! is_object( $product ) ) {
@@ -530,15 +521,9 @@ class WooCommerce_Show_Attributes {
 	 */
 
 	public function all_settings( $settings, $current_section ) {
-
-		/**
-		 * Check the current section is what we want
-		 **/
-
 		if ( $current_section == 'wc_show_attributes' ) {
 
 			$settings_wsa = array(
-
 			array(
 				'name'	=> __( 'WooCommerce Show Attributes Options', 'woocommerce-show-attributes' ),
 				'type'	=> 'title',
@@ -750,7 +735,6 @@ class WooCommerce_Show_Attributes {
 	 */
 
 	public function show_admin_new_order_email( $item_name, $item ) {
-
 		$show_weight = null;
 		if ( get_option( 'wcsa_weight_admin_email' ) == 'yes' ) {
 			$show_weight = true;
