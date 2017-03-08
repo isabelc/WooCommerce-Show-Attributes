@@ -808,58 +808,55 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		<table class="shop_attributes">
 		<?php
 		global $product;
-		$has_row = false;
-		$alt = 1;
 		$attributes = $product->get_attributes();
 
 		if ( $product->enable_dimensions_display() ) :
 			if ( get_option( 'wcsa_weight_product' ) != 'yes' ) {
-				if ( $product->has_weight() ) : $has_row = true; ?>
-					<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
+				if ( $product->has_weight() ) : ?>
+					<tr>
 					<th><?php _e( 'Weight', 'woocommerce-show-attributes' ) ?></th>
-					<td class="product_weight"><?php echo $product->get_weight() . ' ' . esc_attr( get_option( 'woocommerce_weight_unit' ) ); ?></td>
+					<td class="product_weight"><?php echo esc_html( $product->get_weight() ) . ' ' . esc_html( get_option( 'woocommerce_weight_unit' ) ); ?></td>
 					</tr>
 				<?php endif;
 			}
 			if ( get_option( 'wcsa_weight_dimensions' ) != 'yes' ) {
-				if ( $product->has_dimensions() ) : $has_row = true; ?>
-					<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
+				if ( $product->has_dimensions() ) : ?>
+					<tr>
 					<th><?php _e( 'Dimensions', 'woocommerce-show-attributes' ) ?></th>
-					<td class="product_dimensions"><?php echo $product->get_dimensions(); ?></td>
+					<td class="product_dimensions"><?php echo esc_html( $product->get_dimensions( false ) ); ?></td>
 					</tr>
 				<?php endif;
 			}
 		endif; ?>
 
-		<?php foreach ( $attributes as $attribute ) :
-			if ( empty( $attribute['is_visible'] ) || ( $attribute['is_taxonomy'] && ! taxonomy_exists( $attribute['name'] ) ) || empty( $attribute['is_variation'] ) ) {
-				continue;
-			} else {
-				$has_row = true;
-			}
-			?>
-			<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
-			<th><?php echo wc_attribute_label( $attribute['name'] ); ?></th>
+		<?php foreach ( $attributes as $attribute ) : ?>
+			<tr>
+			<th><?php echo esc_html( wc_attribute_label( $attribute['name'] ) ); ?></th>
 			<td><?php
-			if ( $attribute['is_taxonomy'] ) {
+				$values = array();
+				if ( $attribute['is_taxonomy'] ) {
+					global $wc_product_attributes;
+					$product_terms = wc_get_product_terms( $product->id, $attribute['name'], array( 'fields' => 'all' ) );
+					foreach ( $product_terms as $product_term ) {
+						$product_term_name = esc_html( $product_term->name );
+						$link = get_term_link( $product_term->term_id, $attribute['name'] );
+						if ( ! empty ( $wc_product_attributes[ $attribute['name'] ]->attribute_public ) ) {
+							$values[] = '<a href="' . esc_url( $link  ) . '" rel="tag">' . $product_term_name . '</a>';
+						} else {
+							$values[] = $product_term_name;
+						}
+					}
+				} else {
+					// Convert pipes to commas and display values
+					$values = array_map( 'trim', explode( WC_DELIMITER, esc_html( $attribute['value'] ) ) );
+				}
 
-				$values = wc_get_product_terms( $product->id, $attribute['name'], array( 'fields' => 'names' ) );
 				echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attribute, $values );
-
-			} else {
-
-				// Convert pipes to commas and display values
-				$values = array_map( 'trim', explode( WC_DELIMITER, $attribute['value'] ) );
-				echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attribute, $values );
-
-			}
 			?></td>
 			</tr>
 		<?php endforeach; ?>
 		</table>
 	<?php
 	}
-
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
-
 }
