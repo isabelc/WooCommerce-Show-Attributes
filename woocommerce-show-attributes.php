@@ -27,9 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
 class WooCommerce_Show_Attributes {
-
 	private static $instance = null;
-
 	public static function get_instance() {
 		if ( null == self::$instance ) {
 			self::$instance = new self;
@@ -38,7 +36,7 @@ class WooCommerce_Show_Attributes {
 	}
 
 	private function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'woocommerce_single_product_summary', array( $this, 'show_atts_on_product_page' ), 25);
 		add_filter( 'woocommerce_product_tabs', array( $this, 'additional_info_tab' ), 98 );
 		add_filter( 'woocommerce_cart_item_name', array( $this, 'show_atts_on_cart' ), 10, 2 );
