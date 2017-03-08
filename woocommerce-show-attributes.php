@@ -525,7 +525,7 @@ class WooCommerce_Show_Attributes {
 	}
 
 	/**
-	 * Add settings to the WC Show Attributes section.
+	 * Add settings to the Show Attributes section.
 	 * @since 1.4.0
 	 */
 
@@ -734,7 +734,7 @@ class WooCommerce_Show_Attributes {
 	 * @since 1.4.0
 	 */
 	public function add_section( $sections ) {
-		$sections['wc_show_attributes'] = __( 'WC Show Attributes', 'woocommerce-show-attributes' );
+		$sections['wc_show_attributes'] = __( 'Show Attributes', 'woocommerce-show-attributes' );
 		return $sections;
 	}
 

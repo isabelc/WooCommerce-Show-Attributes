@@ -46,7 +46,7 @@ See the [documentation](https://isabelcastillo.com/docs/woocommerce-show-attribu
 
 2.  If you want to show the attributes on the single product page, do this: For each attribute that you want to display, you must check the box for “Visible on the product page.” This is a WooCommerce native option and is found on the Edit Product page (for each product), under the individual attribute settings. If you uncheck that box, the attribute will not be shown for that product.
 
-3.  Optional settings are at WooCommerce Settings -> Products tab. Click on "WC Show Attributes" to see this plugin's options.
+3.  Optional settings are at WooCommerce Settings -> Products tab. Click on "Show Attributes" to see this plugin's options.
 
 
 == Frequently Asked Questions ==
