@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: custom product attributes, woocommerce product attributes, product attributes, custom attributes, woocommerce custom product attributes
 Requires at least: 3.8
 Tested up to: 4.7
-Stable tag: 1.5.3.alpha1
+Stable tag: 1.5.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,9 +29,7 @@ The custom product product attributes will **also** be displayed at these locati
 
 Includes a .pot localization file to make this plugin WPML-ready. Also includes language translations files for the Finnish language.
 
-See the [documentation](http://isabelcastillo.com/docs/category/woocommerce-show-attributes).
-
-Fork it [on GitHub](https://github.com/isabelc/WooCommerce-Show-Attributes).
+See the [documentation](https://isabelcastillo.com/docs/woocommerce-show-attributes).
 
 == Installation ==
 
@@ -44,7 +42,7 @@ Fork it [on GitHub](https://github.com/isabelc/WooCommerce-Show-Attributes).
 
 **Setup**
 
-1.  After you activate the plugin, your custom product attributes will automatically be shown at certain locations. ([see which locations](https://isabelcastillo.com/docs/getting-started)).
+1.  After you activate the plugin, your custom product attributes will automatically be shown at certain locations. ([see which locations](https://isabelcastillo.com/docs/woocommerce-show-attributes#docs-where)).
 
 2.  If you want to show the attributes on the single product page, do this: For each attribute that you want to display, you must check the box for “Visible on the product page.” This is a WooCommerce native option and is found on the Edit Product page (for each product), under the individual attribute settings. If you uncheck that box, the attribute will not be shown for that product.
 
