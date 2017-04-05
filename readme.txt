@@ -1,9 +1,9 @@
 === WooCommerce Show Attributes ===
 Contributors: isabel104
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R7BHLMCQ437SS
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
-Tested up to: 4.8-alpha-40251
+Tested up to: 4.8-alpha-40364
 Stable tag: 1.5.3
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,9 +12,11 @@ Show WooCommerce custom product attributes on the Product, Shop, and Cart pages,
 
 == Description ==
 
-This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. This does NOT affect nor include attributes which are used for Variations.
+This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. Your product attributes will also be displayed at several other locations, including on order emails. See the full list, below. This plugin does NOT affect nor include attributes which are used for Variations.
 
-The custom product product attributes will **also** be displayed at these locations (with option to turn them off):
+See the [Installation Guide](https://isabelcastillo.com/docs/woocommerce-show-attributes).
+
+Your product attributes will **also** be displayed at these locations (with option to turn them off):
 
 * Grouped product page
 * Shop page (including product category and tag archives) (Off by default. You must enable this option.)
@@ -28,8 +30,6 @@ The custom product product attributes will **also** be displayed at these locati
 * Admin Order Details page on the back end, under Order Items
 
 Includes a .pot localization file to make this plugin WPML-ready. Also includes language translations files for the Finnish language.
-
-See the [documentation](https://isabelcastillo.com/docs/woocommerce-show-attributes).
 
 == Installation ==
 
@@ -109,9 +109,9 @@ Add this CSS:
 
 == Screenshots ==
 
-1. The attributes under the product name on the Edit Order page in the admin backend.
-2. The attributes under the product name on the Cart page.
-3. The attributes under the product name on the Customer's Order Details page on the front end.
+1. The attributes under the product name on the Cart page.
+2. The attributes under the product name on the Customer's Order Details page on the front end.
+3. The attributes under the product name on the Edit Order page in the admin backend.
 
 == Changelog ==
 
