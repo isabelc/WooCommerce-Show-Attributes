@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
 Tested up to: 4.8-alpha-40364
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,11 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.5.4 =
+* Fix - Remove 'Product' from the attribute label which was caused by a change in WooCommerce 3.0.
+* API - Don't access the $product->id property directly, which throws a notice since WC 3.0.
+* API - Update the Additional Information tab for WC 3.0
+
 = 1.5.3 =
 * New - Change the title for the settings section to just "Show Attributes."
 * New - Update the Additional Information tab to match the WooCommerce core tab.
@@ -189,6 +194,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+= 1.5.4 =
+Fix - Remove 'Product' from the attribute label which was caused by a change in WooCommerce 3.0.
+
 = 1.5.2 =
 Fix - Improve use of get_current_screen since it returns NULL in some cases.
 
