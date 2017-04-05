@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: https://isabelcastillo.com/docs/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.5.4.alpha.1
+Version: 1.5.4.alpha.2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -808,25 +808,30 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		<?php
 		global $product;
 		$attributes = $product->get_attributes();
+		$has_weight = $product->has_weight();
+		$has_dimensions = $product->has_dimensions();
+		$display_dimensions = apply_filters( 'wc_product_enable_dimensions_display', $has_weight || $has_dimensions );
 
-		if ( $product->enable_dimensions_display() ) :
-			if ( get_option( 'wcsa_weight_product' ) != 'yes' ) {
-				if ( $product->has_weight() ) : ?>
+		if ( get_option( 'wcsa_weight_product' ) != 'yes' ) {
+				if ( $display_dimensions && $has_weight ) : ?>
 					<tr>
 					<th><?php _e( 'Weight', 'woocommerce-show-attributes' ) ?></th>
-					<td class="product_weight"><?php echo esc_html( $product->get_weight() ) . ' ' . esc_html( get_option( 'woocommerce_weight_unit' ) ); ?></td>
+					<td class="product_weight"><?php echo esc_html( wc_format_weight( $product->get_weight() ) ); ?></td>
 					</tr>
 				<?php endif;
-			}
-			if ( get_option( 'wcsa_weight_dimensions' ) != 'yes' ) {
-				if ( $product->has_dimensions() ) : ?>
-					<tr>
-					<th><?php _e( 'Dimensions', 'woocommerce-show-attributes' ) ?></th>
-					<td class="product_dimensions"><?php echo esc_html( $product->get_dimensions( false ) ); ?></td>
-					</tr>
-				<?php endif;
-			}
-		endif;
+		}
+
+		if ( get_option( 'wcsa_weight_dimensions' ) != 'yes' ) {
+
+
+			if ( $display_dimensions && $product->has_dimensions() ) : ?>
+				<tr>
+				<th><?php _e( 'Dimensions', 'woocommerce-show-attributes' ) ?></th>
+				<td class="product_dimensions"><?php echo esc_html( wc_format_dimensions( $product->get_dimensions( false ) ) ); ?></td>
+				</tr>
+			<?php endif;
+		}
+
 
 		foreach ( $attributes as $attribute ) : 
 			// Skip atts that are shown above add to cart
@@ -840,8 +845,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$values = array();
 				if ( $attribute['is_taxonomy'] ) {
 					global $wc_product_attributes;
-					$product_id = $product->get_id();
-					$product_terms = wc_get_product_terms( $product_id, $attribute['name'], array( 'fields' => 'all' ) );
+					$product_terms = wc_get_product_terms( $product->get_id(), $attribute['name'], array( 'fields' => 'all' ) );
 					foreach ( $product_terms as $product_term ) {
 						$product_term_name = esc_html( $product_term->name );
 						$link = get_term_link( $product_term->term_id, $attribute['name'] );
