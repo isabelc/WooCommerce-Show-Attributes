@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: https://isabelcastillo.com/docs/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.6.alpha.1
+Version: 1.6.alpha.2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -43,7 +43,7 @@ class WooCommerce_Show_Attributes {
 		add_filter( 'woocommerce_order_item_name', array( $this, 'show_admin_new_order_email' ), 99, 2 );
 		add_action( 'woocommerce_admin_order_item_values', array( $this, 'show_atts_in_admin_order'), 10, 3 );
 		add_action( 'woocommerce_admin_order_item_headers', array( $this, 'admin_order_item_header' ) );
-		add_filter( 'woocommerce_get_settings_products', array( $this, 'all_settings' ), 10, 2 );
+		add_filter( 'woocommerce_get_settings_products', array( $this, 'add_settings' ), 10, 2 );
 		add_filter( 'woocommerce_get_sections_products', array( $this, 'add_section' ) );
 		add_action( 'init', array( $this, 'if_show_atts_on_shop' ) );
 		add_action( 'woocommerce_grouped_product_list_before_price', array( $this, 'show_atts_grouped_product' ) );
@@ -517,14 +517,11 @@ class WooCommerce_Show_Attributes {
 	}
 
 	/**
-	 * Add settings to the Show Attributes section.
-	 * @since 1.4.0
+	 * Return an array of all our settings
+	 * @since 1.6
 	 */
-
-	public function all_settings( $settings, $current_section ) {
-		if ( $current_section == 'wc_show_attributes' ) {
-
-			$settings_wsa = array(
+	public function all_settings() {
+		$settings = array(
 			array(
 				'name'	=> __( 'WooCommerce Show Attributes Options', 'woocommerce-show-attributes' ),
 				'type'	=> 'title',
@@ -701,14 +698,22 @@ class WooCommerce_Show_Attributes {
 				'desc'		=> __( 'On the single product page, show the attribute terms as links. They will link to their archive pages. This only works with Global Attributes. Global Attributes are created in Products -> Attributes.', 'woocommerce-show-attributes' )
 				),
 				array( 'type' => 'sectionend', 'id' => 'wcsa_extra_options' ),
-			);
+		);
 
-			return $settings_wsa;
+		return $settings;
+
+	}
+
+	/**
+	 * Add settings to the Show Attributes section.
+	 * @since 1.4.0
+	 */
+	public function add_settings( $settings, $current_section ) {
+		if ( 'wc_show_attributes' == $current_section ) {
+			return $this->all_settings();
 
 			// If not, return the standard settings
-
 		} else {
-
 			return $settings;
 
 		}
@@ -795,6 +800,21 @@ class WooCommerce_Show_Attributes {
 		$css .= '.custom-attributes {display: table}.custom-attributes > span {display: table-row}.custom-attributes .attribute-label{white-space: nowrap}.custom-attributes .attribute-value {padding-left: 8px;display: table-cell}.custom-attributes br {display: none}';
 		return $css;
 	}
+	/**
+	 * Save default options upon plugin activation
+	 */
+	static function install() {
+		$settings = $this->all_settings();
+		foreach ( $settings as $option ) {
+			if ( ! empty( $option['default'] ) ) {// Only if we have any defaults
+				$db_option = get_option( $option['id'] );
+				if ( empty( $db_option ) ) {// If option is empty, set the default value
+					update_option( $option['id'], $option['default'] );
+				}
+			}
+		}
+
+	}
 
 } // end class
 
@@ -873,4 +893,5 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	<?php
 	}
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
+	register_activation_hook(__FILE__, array( $WooCommerce_Show_Attributes, 'install' ) );
 }
