@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: https://isabelcastillo.com/docs/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.5.4
+Version: 1.6.alpha.1
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -25,7 +25,6 @@ You should have received a copy of the GNU General Public License
 along with WooCommerce Show Attributes; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
-
 class WooCommerce_Show_Attributes {
 	private static $instance = null;
 	public static function get_instance() {
@@ -37,7 +36,7 @@ class WooCommerce_Show_Attributes {
 
 	private function __construct() {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
-		add_action( 'woocommerce_single_product_summary', array( $this, 'show_atts_on_product_page' ), 25);
+		add_action( 'woocommerce_single_product_summary', array( $this, 'show_atts_on_product_page' ), 25 );
 		add_filter( 'woocommerce_product_tabs', array( $this, 'additional_info_tab' ), 98 );
 		add_filter( 'woocommerce_cart_item_name', array( $this, 'show_atts_on_cart' ), 10, 2 );
 		add_filter( 'woocommerce_order_item_name', array( $this, 'show_atts_on_customer_order' ), 99, 2 );
@@ -108,21 +107,22 @@ class WooCommerce_Show_Attributes {
 					}
 
 					foreach ( $attributes as $attribute ) {
-
 						// skip variations
-						if ( $attribute['is_variation'] ) {
+						if ( $attribute->get_variation() ) {
 							continue;
 						}
 
 						// honor the visibility setting
-						if ( ! $attribute['is_visible'] ) {
+						if ( ! $attribute->get_visible() ) {
 							continue;
 						}
 
-						if ( $attribute['is_taxonomy'] ) {
+						$name = $attribute->get_name();
+
+						if ( $attribute->is_taxonomy() ) {
 
 							$product_id = $product->get_id();
-							$terms = wp_get_post_terms( $product_id, $attribute['name'], 'all' );
+							$terms = wp_get_post_terms( $product_id, $name, 'all' );
 
 							if ( ! empty( $terms ) ) {
 								if ( ! is_wp_error( $terms ) ) {
@@ -142,7 +142,7 @@ class WooCommerce_Show_Attributes {
 	        								$tax_label = substr( $tax_label, strlen( $label_prefix ) );
 										}										
 									}
-									$out_middle .= '<' . esc_attr( $element ) . ' class="' . esc_attr( $attribute['name'] ) . '">';
+									$out_middle .= '<' . esc_attr( $element ) . ' class="' . esc_attr( $name ) . '">';
 									// Hide labels if they want to
 									if ( $hide_labels != 'yes' ) {
 										$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $tax_label ) ) . '</span>' . $colon . ' </span> ';
@@ -177,14 +177,14 @@ class WooCommerce_Show_Attributes {
 							}
 
 						} else {
-
-							$out_middle .= '<' . esc_attr( $element ) . ' class="' . sanitize_title( $attribute['name'] ) . ' ' . sprintf( __( '%s', 'woocommerce-show-attributes' ), sanitize_title( $attribute['value'] ) ) . '">';
+							$value_string = implode( ', ', $attribute->get_options() );
+							$out_middle .= '<' . esc_attr( $element ) . ' class="' . sanitize_title( $name ) . ' ' . sprintf( __( '%s', 'woocommerce-show-attributes' ), sanitize_title( $value_string ) ) . '">';
 
 							// Hide labels if they want to
 							if ( $hide_labels != 'yes' ) {
-								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $attribute['name'] ) ) . '</span>' . $colon . ' </span> ';
+								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $name ) ) . '</span>' . $colon . ' </span> ';
 							}
-							$out_middle .= '<span class="attribute-value">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $attribute['value'] ) ) . '</span></' . esc_attr( $element ) . '>';
+							$out_middle .= '<span class="attribute-value">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $value_string ) ) . '</span></' . esc_attr( $element ) . '>';
 							if ('span' == $element) {
 								$out_middle .= '<br />';
 							}
@@ -472,13 +472,11 @@ class WooCommerce_Show_Attributes {
 
 			$need_tab = array();
 			foreach ( $attributes as $attribute ) {
-
-				if ( ( ! empty( $attribute['is_variation'] ) ) && ( ! empty( $attribute['is_visible'] ) ) ) {
+				if ( $attribute->get_variation() && $attribute->get_visible() ) {
 					$need_tab[] = 1;					
 				} else {
 					$need_tab[] = '';
 				}
-
 			}
 
 			// if all $need_tab array values are empty, none of the attributes are visible variations
@@ -837,31 +835,34 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 
-		foreach ( $attributes as $attribute ) : 
+		foreach ( $attributes as $attribute ) :
+			$name = $attribute->get_name();
 			// Skip atts that are shown above add to cart
 			if ( get_option( 'wcsa_product', 'no' ) == 'yes') {
 				continue;
 			}
 		?>
 			<tr>
-			<th><?php echo esc_html( wc_attribute_label( $attribute['name'] ) ); ?></th>
+			<th><?php echo esc_html( wc_attribute_label( $name ) ); ?></th>
 			<td><?php
 				$values = array();
-				if ( $attribute['is_taxonomy'] ) {
+				if ( $attribute->is_taxonomy() ) {
 					global $wc_product_attributes;
-					$product_terms = wc_get_product_terms( $product->get_id(), $attribute['name'], array( 'fields' => 'all' ) );
+					$product_terms = wc_get_product_terms( $product->get_id(), $name, array( 'fields' => 'all' ) );
 					foreach ( $product_terms as $product_term ) {
 						$product_term_name = esc_html( $product_term->name );
-						$link = get_term_link( $product_term->term_id, $attribute['name'] );
-						if ( ! empty ( $wc_product_attributes[ $attribute['name'] ]->attribute_public ) ) {
+						$link = get_term_link( $product_term->term_id, $name );
+						if ( ! empty ( $wc_product_attributes[ $name ]->attribute_public ) ) {
 							$values[] = '<a href="' . esc_url( $link  ) . '" rel="tag">' . $product_term_name . '</a>';
 						} else {
 							$values[] = $product_term_name;
 						}
 					}
 				} else {
-					// Convert pipes to commas and display values
-					$values = array_map( 'trim', explode( WC_DELIMITER, esc_html( $attribute['value'] ) ) );
+					$values = $attribute->get_options();
+					foreach ( $values as &$value ) {
+						$value = esc_html( $value );
+					}
 				}
 
 				echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attribute, $values );
