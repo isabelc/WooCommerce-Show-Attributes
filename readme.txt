@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R7BHLMCQ437SS
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
-Tested up to: 4.8-alpha-40364
-Stable tag: 1.5.4
+Tested up to: 4.8-alpha-40397
+Stable tag: 1.6
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,14 +12,12 @@ Show WooCommerce custom product attributes on the Product, Shop, and Cart pages,
 
 == Description ==
 
-This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. Your product attributes will also be displayed at several other locations, including on order emails. See the full list, below. This plugin does NOT affect nor include attributes which are used for Variations.
+= Requires WooCommerce 3.0 or above. =
 
-See the [Installation Guide](https://isabelcastillo.com/docs/woocommerce-show-attributes).
+This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. Your product attributes will also be displayed at several other locations, including on order emails. See the full list, below. This plugin does NOT affect nor include attributes which are used for Variations.
 
 Your product attributes will **also** be displayed at these locations (with option to turn them off):
 
-* Grouped product page
-* Shop page (including product category and tag archives) (Off by default. You must enable this option.)
 * Cart page
 * View Order page on front end for customers
 * Emails that goes to the customer, including:
@@ -28,8 +26,12 @@ Your product attributes will **also** be displayed at these locations (with opti
 	* Customer Invoice email
 * New Order email that goes to the administrator
 * Admin Order Details page on the back end, under Order Items
+* Grouped product page
+* Shop page (including product category and tag archives) (Off by default. You must enable this option on the settings page.)
 
 Includes a .pot localization file to make this plugin WPML-ready. Also includes language translations files for the Finnish language.
+
+See the [full documentation](https://isabelcastillo.com/docs/woocommerce-show-attributes).
 
 == Installation ==
 
@@ -115,6 +117,11 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.6 =
+* New - Save default options upon activation.
+* New - Delete our options upon plugin deletion.
+* Fix - Compatibility with PHP 7.1 and WooCommerce 3.0. Accessing attribute data directly was causing some PHP notices in PHP 7.1. We now use the new WC_Product_Attribute class getters instead of accessing attribute data directly.
+
 = 1.5.4 =
 * Fix - Remove 'Product' from the attribute label which was caused by a change in WooCommerce 3.0.
 * API - Don't access the $product->id property directly, which throws a notice since WC 3.0.
@@ -194,6 +201,10 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+
+= 1.6 =
+Compatibility with PHP 7.1 and WooCommerce 3.0. Accessing attribute data directly was causing some PHP notices in PHP 7.1.
+
 = 1.5.4 =
 Fix - Remove 'Product' from the attribute label which was caused by a change in WooCommerce 3.0.
 
