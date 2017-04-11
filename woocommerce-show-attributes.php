@@ -152,7 +152,7 @@ class WooCommerce_Show_Attributes {
 										// PolyLang translation support
 										if ( function_exists( 'pll__' ) ) {
 											$translation = pll__( $tax_label );
-											$tax_label = ! empty( $translation ) ) ? $translation : $tax_label;
+											$tax_label = ( ! empty( $translation ) ) ? $translation : $tax_label;
 										}
 
 										$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $tax_label ) ) . '</span>' . $colon . ' </span> ';
@@ -196,7 +196,7 @@ class WooCommerce_Show_Attributes {
 								// PolyLang translation support
 								if ( function_exists( 'pll__' ) ) {
 									$translation = pll__( $name );
-									$name = ! empty( $translation ) ) ? $translation : $name;
+									$name = ( ! empty( $translation ) ) ? $translation : $name;
 								}
 
 								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $name ) ) . '</span>' . $colon . ' </span> ';
