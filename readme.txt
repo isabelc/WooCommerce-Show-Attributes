@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R7BHLMCQ437SS
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
-Tested up to: 4.8-alpha-40397
-Stable tag: 1.6
+Tested up to: 4.8-alpha-40406
+Stable tag: 1.6.1
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.6.1 =
+* Fix - Fixed an installation error in version 1.6.
+
 = 1.6 =
 * New - Save default options upon activation.
 * New - Delete our options upon plugin deletion.
@@ -201,6 +204,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+
+= 1.6.1 =
+Fixed an installation error in version 1.6.
 
 = 1.6 =
 Compatibility with PHP 7.1 and WooCommerce 3.0. Accessing attribute data directly was causing some PHP notices in PHP 7.1.
