@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: https://isabelcastillo.com/docs/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.6
+Version: 1.6.1.alpha.6
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -517,200 +517,12 @@ class WooCommerce_Show_Attributes {
 	}
 
 	/**
-	 * Return an array of all our settings
-	 * @since 1.6
-	 */
-	public function all_settings() {
-		$settings = array(
-			array(
-				'name'	=> __( 'WooCommerce Show Attributes Options', 'woocommerce-show-attributes' ),
-				'type'	=> 'title',
-				'desc'	=> __( 'Where would you like to show your custom product attributes?', 'woocommerce-show-attributes' ),
-				'id'	=> 'wc_show_attributes' ),
-			array(
-				'name'		=> __( 'Show Attributes on Product Page', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_product',
-				'default'	=> 'yes',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show attributes on the single product above Add To Cart, and on Grouped products.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Attributes on Shop Pages', 'woocommerce-show-attributes' ),
-				'desc'		=> __( 'Whether to show attributes on the main shop page and shop category pages.', 'woocommerce-show-attributes' ),
-				'id'		=> 'woocommerce_show_attributes_on_shop',
-				'css'		=> '',
-				'default'	=> 'no',
-				'type'		=> 'select',
-				'options'	=> array(
-						''					=> __( 'No', 'woocommerce-show-attributes' ),
-						'above_price'		=> __( 'Show them above the price', 'woocommerce-show-attributes' ),
-						'above_add2cart'	=> __( 'Show them above "Add to Cart"', 'woocommerce-show-attributes' ),
-				),
-				'desc_tip'	=> true,
-				),
-			array(
-				'name'		=> __( 'Show Attributes on Cart Page', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_cart',
-				'default'	=> 'yes',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show attributes on the cart and checkout pages.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Attributes on Customer Order Emails', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_customer_order_emails',
-				'default'	=> 'yes',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show attributes on customer order, invoice, and receipt emails, and on the customer\'s View Order page.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Attributes on Admin New Order Email', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_admin_email',
-				'default'	=> 'yes',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show attributes on the New Order email which goes to the Administrator.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Attributes on Admin Order Details Page', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_admin_order_details',
-				'default'	=> 'yes',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show attributes on the Order Details page on the back end, listed under "Order Items".', 'woocommerce-show-attributes' )
-				),
-			array( 'type' => 'sectionend', 'id' => 'wc_show_attributes' ),
-			// style
-			array(
-				'title'		=> __( 'Style Options', 'woocommerce-show-attributes' ),
-				'desc'		=> __( 'These options affect the style or appearance of the attributes.', 'woocommerce-show-attributes' ),
-				'type'		=> 'title',
-				'id'		=> 'wcsa_style'
-				),
-			array(
-				'name'		=> __( 'Hide the Labels When Showing Product Attributes', 'woocommerce-show-attributes' ),
-				'id'		=> 'woocommerce_show_attributes_hide_labels',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Check this box to hide the attribute labels and only show the attribute values.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Attributes in a span Element', 'woocommerce-show-attributes' ),
-				'id'		=> 'woocommerce_show_attributes_span',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Check this box to use a span element instead of list bullets when showing product attributes on the single product page.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Remove Colon From Attribute Labels', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_remove_semicolon',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Check this box to remove the colon from the attribute labels. Useful for RTL languages.', 'woocommerce-show-attributes' )
-				),
-			array( 'type' => 'sectionend', 'id' => 'wcsa_style' ),
-			// weight and Dimensions
-			array(
-				'title'		=> __( 'Show Weight and Dimensions', 'woocommerce-show-attributes' ),
-				'desc'		=> __( 'These options let you show the product weight and dimensions in various places.', 'woocommerce-show-attributes' ),
-				'type'		=> 'title',
-				'id'		=> 'wc_show_weight_dimensions'
-				),
-			array(
-				'name'		=> __( 'Show Weight on Product Page Above Add To Cart', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_weight_product',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product weight on the single product pages, and Grouped products, above Add To Cart instead of in the Additional Information tab.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Dimensions on Product Page Above Add To Cart', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_dimensions_product',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product dimensions on the single product pages, and Grouped products, above Add To Cart instead of in the Additional Information tab.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Weight on Cart Page', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_weight_cart',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product weight on the cart and checkout pages.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Dimensions on Cart Page', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_dimensions_cart',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product dimensions on the cart and checkout pages.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Weight on Customer Order Emails', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_weight_customer_order_emails',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product weight on customer order, invoice, and receipt emails, and on the customer\'s View Order page.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Dimensions on Customer Order Emails', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_dimensions_customer_order_emails',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product dimensions on customer order, invoice, and receipt emails, and on the customer\'s View Order page.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Weight on Admin New Order Email', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_weight_admin_email',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product weight on the New Order email which goes to the Administrator.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Dimensions on Admin New Order Email', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_dimensions_admin_email',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product dimensions on the New Order email which goes to the Administrator.', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Weight on Admin Order Details Page', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_weight_admin_order_details',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product weight on the Order Details page on the back end, listed under "Order Items".', 'woocommerce-show-attributes' )
-				),
-			array(
-				'name'		=> __( 'Show Dimensions on Admin Order Details Page', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_dimensions_admin_order_details',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'Show product dimensions on the Order Details page on the back end, listed under "Order Items".', 'woocommerce-show-attributes' )
-				),
-			array( 'type' => 'sectionend', 'id' => 'wc_show_weight_dimensions' ),
-			// Extra Options
-			array(
-				'title'		=> __( 'Extra Options', 'woocommerce-show-attributes' ),
-				'type'		=> 'title',
-				'id'		=> 'wcsa_extra_options'
-				),
-			array(
-				'name'		=> __( 'Show Attribute Terms as Links', 'woocommerce-show-attributes' ),
-				'id'		=> 'wcsa_terms_as_links',
-				'default'	=> 'no',
-				'type'		=> 'checkbox',
-				'desc'		=> __( 'On the single product page, show the attribute terms as links. They will link to their archive pages. This only works with Global Attributes. Global Attributes are created in Products -> Attributes.', 'woocommerce-show-attributes' )
-				),
-				array( 'type' => 'sectionend', 'id' => 'wcsa_extra_options' ),
-		);
-
-		return $settings;
-
-	}
-
-	/**
 	 * Add settings to the Show Attributes section.
 	 * @since 1.4.0
 	 */
 	public function add_settings( $settings, $current_section ) {
 		if ( 'wc_show_attributes' == $current_section ) {
-			return $this->all_settings();
+			return wcsa_all_settings();
 
 			// If not, return the standard settings
 		} else {
@@ -804,7 +616,7 @@ class WooCommerce_Show_Attributes {
 	 * Save default options upon plugin activation
 	 */
 	static function install() {
-		$settings = $this->all_settings();
+		$settings = wcsa_all_settings();
 		foreach ( $settings as $option ) {
 			if ( ! empty( $option['default'] ) ) {// Only if we have any defaults
 				$db_option = get_option( $option['id'] );
@@ -894,4 +706,191 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	}
 	$WooCommerce_Show_Attributes = WooCommerce_Show_Attributes::get_instance();
 	register_activation_hook(__FILE__, array( $WooCommerce_Show_Attributes, 'install' ) );
+}
+
+/**
+ * Return an array of all our settings
+ * @since 1.6.1
+ */
+function wcsa_all_settings() {
+	$settings = array(
+		array(
+			'name'	=> __( 'WooCommerce Show Attributes Options', 'woocommerce-show-attributes' ),
+			'type'	=> 'title',
+			'desc'	=> __( 'Where would you like to show your custom product attributes?', 'woocommerce-show-attributes' ),
+			'id'	=> 'wc_show_attributes' ),
+		array(
+			'name'		=> __( 'Show Attributes on Product Page', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_product',
+			'default'	=> 'yes',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show attributes on the single product above Add To Cart, and on Grouped products.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Attributes on Shop Pages', 'woocommerce-show-attributes' ),
+			'desc'		=> __( 'Whether to show attributes on the main shop page and shop category pages.', 'woocommerce-show-attributes' ),
+			'id'		=> 'woocommerce_show_attributes_on_shop',
+			'css'		=> '',
+			'default'	=> 'no',
+			'type'		=> 'select',
+			'options'	=> array(
+							''					=> __( 'No', 'woocommerce-show-attributes' ),
+							'above_price'		=> __( 'Show them above the price', 'woocommerce-show-attributes' ),
+							'above_add2cart'	=> __( 'Show them above "Add to Cart"', 'woocommerce-show-attributes' ),
+				),
+				'desc_tip'	=> true,
+				),
+		array(
+			'name'		=> __( 'Show Attributes on Cart Page', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_cart',
+			'default'	=> 'yes',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show attributes on the cart and checkout pages.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Attributes on Customer Order Emails', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_customer_order_emails',
+			'default'	=> 'yes',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show attributes on customer order, invoice, and receipt emails, and on the customer\'s View Order page.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Attributes on Admin New Order Email', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_admin_email',
+			'default'	=> 'yes',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show attributes on the New Order email which goes to the Administrator.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Attributes on Admin Order Details Page', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_admin_order_details',
+			'default'	=> 'yes',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show attributes on the Order Details page on the back end, listed under "Order Items".', 'woocommerce-show-attributes' )
+				),
+		array( 'type' => 'sectionend', 'id' => 'wc_show_attributes' ),
+			// style
+		array(
+			'title'		=> __( 'Style Options', 'woocommerce-show-attributes' ),
+			'desc'		=> __( 'These options affect the style or appearance of the attributes.', 'woocommerce-show-attributes' ),
+			'type'		=> 'title',
+			'id'		=> 'wcsa_style'
+				),
+		array(
+			'name'		=> __( 'Hide the Labels When Showing Product Attributes', 'woocommerce-show-attributes' ),
+			'id'		=> 'woocommerce_show_attributes_hide_labels',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Check this box to hide the attribute labels and only show the attribute values.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Attributes in a span Element', 'woocommerce-show-attributes' ),
+			'id'		=> 'woocommerce_show_attributes_span',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Check this box to use a span element instead of list bullets when showing product attributes on the single product page.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Remove Colon From Attribute Labels', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_remove_semicolon',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Check this box to remove the colon from the attribute labels. Useful for RTL languages.', 'woocommerce-show-attributes' )
+				),
+		array( 'type' => 'sectionend', 'id' => 'wcsa_style' ),
+			// weight and Dimensions
+		array(
+			'title'		=> __( 'Show Weight and Dimensions', 'woocommerce-show-attributes' ),
+			'desc'		=> __( 'These options let you show the product weight and dimensions in various places.', 'woocommerce-show-attributes' ),
+			'type'		=> 'title',
+			'id'		=> 'wc_show_weight_dimensions'
+				),
+		array(
+			'name'		=> __( 'Show Weight on Product Page Above Add To Cart', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_weight_product',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product weight on the single product pages, and Grouped products, above Add To Cart instead of in the Additional Information tab.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Dimensions on Product Page Above Add To Cart', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_dimensions_product',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product dimensions on the single product pages, and Grouped products, above Add To Cart instead of in the Additional Information tab.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Weight on Cart Page', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_weight_cart',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product weight on the cart and checkout pages.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Dimensions on Cart Page', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_dimensions_cart',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product dimensions on the cart and checkout pages.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Weight on Customer Order Emails', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_weight_customer_order_emails',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product weight on customer order, invoice, and receipt emails, and on the customer\'s View Order page.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Dimensions on Customer Order Emails', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_dimensions_customer_order_emails',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product dimensions on customer order, invoice, and receipt emails, and on the customer\'s View Order page.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Weight on Admin New Order Email', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_weight_admin_email',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product weight on the New Order email which goes to the Administrator.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Dimensions on Admin New Order Email', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_dimensions_admin_email',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product dimensions on the New Order email which goes to the Administrator.', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Weight on Admin Order Details Page', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_weight_admin_order_details',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product weight on the Order Details page on the back end, listed under "Order Items".', 'woocommerce-show-attributes' )
+				),
+		array(
+			'name'		=> __( 'Show Dimensions on Admin Order Details Page', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_dimensions_admin_order_details',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'Show product dimensions on the Order Details page on the back end, listed under "Order Items".', 'woocommerce-show-attributes' )
+				),
+		array( 'type' => 'sectionend', 'id' => 'wc_show_weight_dimensions' ),
+			// Extra Options
+		array(
+			'title'		=> __( 'Extra Options', 'woocommerce-show-attributes' ),
+			'type'		=> 'title',
+			'id'		=> 'wcsa_extra_options'
+				),
+		array(
+			'name'		=> __( 'Show Attribute Terms as Links', 'woocommerce-show-attributes' ),
+			'id'		=> 'wcsa_terms_as_links',
+			'default'	=> 'no',
+			'type'		=> 'checkbox',
+			'desc'		=> __( 'On the single product page, show the attribute terms as links. They will link to their archive pages. This only works with Global Attributes. Global Attributes are created in Products -> Attributes.', 'woocommerce-show-attributes' )
+				),
+			array( 'type' => 'sectionend', 'id' => 'wcsa_extra_options' ),
+	);
+
+	return $settings;
 }
