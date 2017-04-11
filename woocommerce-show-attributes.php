@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: https://isabelcastillo.com/docs/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.6.2.alpha.3
+Version: 1.6.2.alpha.4
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -149,6 +149,12 @@ class WooCommerce_Show_Attributes {
 									$out_middle .= '<' . esc_attr( $element ) . ' class="' . esc_attr( $name ) . '">';
 									// Hide labels if they want to
 									if ( $hide_labels != 'yes' ) {
+										// PolyLang translation support
+										if ( function_exists( 'pll__' ) ) {
+											$translation = pll__( $tax_label );
+											$tax_label = ! empty( $translation ) ) ? $translation : $tax_label;
+										}
+
 										$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $tax_label ) ) . '</span>' . $colon . ' </span> ';
 									}
 									$out_middle .= '<span class="attribute-value">';
@@ -186,6 +192,13 @@ class WooCommerce_Show_Attributes {
 
 							// Hide labels if they want to
 							if ( $hide_labels != 'yes' ) {
+
+								// PolyLang translation support
+								if ( function_exists( 'pll__' ) ) {
+									$translation = pll__( $name );
+									$name = ! empty( $translation ) ) ? $translation : $name;
+								}
+
 								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $name ) ) . '</span>' . $colon . ' </span> ';
 							}
 							$out_middle .= '<span class="attribute-value">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $value_string ) ) . '</span></' . esc_attr( $element ) . '>';
