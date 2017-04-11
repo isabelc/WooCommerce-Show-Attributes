@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
 Tested up to: 4.8-alpha-40406
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GNU Version 2 or Any Later Version
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,14 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.6.2 =
+* New - Add PolyLang translation support for attribute names.
+* Fix - Check for WC_Product_Attribute object before using member functions to avoid a PHP fatal error.
+* Fix - Removed WooCommerce deprecated notices for functions that will be removed in the future:
+	* Use wc_get_product instead of get_product.
+	* Update the parameter for get_dimensions.
+* REMINDER: This plugin requires WooCommerce 3.0 or higher.	
+
 = 1.6.1 =
 * New - This plugin now requires WooCommerce 3.0 or higher.
 * Fix - Fixed an installation error in version 1.6.
@@ -205,6 +213,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+
+= 1.6.2 =
+Fixed a fatal error. New PolyLang translation support for attribute names. This plugin requires WooCommerce 3.0 or higher.
 
 = 1.6.1 =
 Fixed an installation error in version 1.6. This plugin now requires WooCommerce 3.0 or higher.
