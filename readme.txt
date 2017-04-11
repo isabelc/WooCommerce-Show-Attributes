@@ -118,6 +118,7 @@ Add this CSS:
 == Changelog ==
 
 = 1.6.1 =
+* New - This plugin now requires WooCommerce 3.0 or higher.
 * Fix - Fixed an installation error in version 1.6.
 
 = 1.6 =
@@ -206,7 +207,7 @@ Add this CSS:
 == Upgrade Notice ==
 
 = 1.6.1 =
-Fixed an installation error in version 1.6.
+Fixed an installation error in version 1.6. This plugin now requires WooCommerce 3.0 or higher.
 
 = 1.6 =
 Compatibility with PHP 7.1 and WooCommerce 3.0. Accessing attribute data directly was causing some PHP notices in PHP 7.1.
