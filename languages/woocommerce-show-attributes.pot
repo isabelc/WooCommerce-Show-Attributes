@@ -1,265 +1,299 @@
-# Copyright (C) 2014 WooCommerce Show Attributes
+# Copyright (C) 2017 WooCommerce Show Attributes
 # This file is distributed under the same license as the WooCommerce Show Attributes package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Show Attributes 1.2.5\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/woocommerce-show-attributes\n"
-"POT-Creation-Date: 2015-02-03 23:36-0500\n"
-"PO-Revision-Date: 2015-02-03 23:37-0500\n"
-"Last-Translator: Isabel Castillo <me@isabelcastillo.com>\n"
-"Language-Team: LANGUAGE <me@isabelcastillo.com>\n"
-"Language: English\n"
+"Project-Id-Version: WooCommerce Show Attributes 1.6.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/WooCommerce-Show-"
+"Attributes\n"
+"POT-Creation-Date: 2017-04-20 17:13:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_x;_e;_ex;_n\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: /var/www/html/wp-content/plugins/woocommerce-show-"
-"attributes\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:155
-#, php-format
+#: woocommerce-show-attributes.php:144
+msgid "Product"
+msgstr ""
+
+#: woocommerce-show-attributes.php:158 woocommerce-show-attributes.php:165
+#: woocommerce-show-attributes.php:174 woocommerce-show-attributes.php:191
+#: woocommerce-show-attributes.php:202 woocommerce-show-attributes.php:204
 msgid "%s"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:191
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:756
+#: woocommerce-show-attributes.php:222 woocommerce-show-attributes.php:677
 msgid "Weight"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:204
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:764
+#: woocommerce-show-attributes.php:235 woocommerce-show-attributes.php:688
 msgid "Dimensions"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:366
+#: woocommerce-show-attributes.php:426
 msgid "Attributes"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:487
+#: woocommerce-show-attributes.php:565
+msgid "Show Attributes"
+msgstr ""
+
+#: woocommerce-show-attributes.php:665
+msgid "Additional Information"
+msgstr ""
+
+#: woocommerce-show-attributes.php:743
 msgid "WooCommerce Show Attributes Options"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:487
+#: woocommerce-show-attributes.php:745
 msgid "Where would you like to show your custom product attributes?"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:489
+#: woocommerce-show-attributes.php:748
 msgid "Show Attributes on Product Page"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:493
+#: woocommerce-show-attributes.php:752
 msgid ""
 "Show attributes on the single product above Add To Cart, and on Grouped "
 "products."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:496
+#: woocommerce-show-attributes.php:755
 msgid "Show Attributes on Shop Pages"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:497
+#: woocommerce-show-attributes.php:756
 msgid ""
 "Whether to show attributes on the main shop page and shop category pages."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:503
+#: woocommerce-show-attributes.php:762
 msgid "No"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:504
+#: woocommerce-show-attributes.php:763
 msgid "Show them above the price"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:505
+#: woocommerce-show-attributes.php:764
 msgid "Show them above \"Add to Cart\""
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:510
+#: woocommerce-show-attributes.php:769
 msgid "Show Attributes on Cart Page"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:514
+#: woocommerce-show-attributes.php:773
 msgid "Show attributes on the cart and checkout pages."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:517
+#: woocommerce-show-attributes.php:776
 msgid "Show Attributes on Customer Order Emails"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:521
+#: woocommerce-show-attributes.php:780
 msgid ""
 "Show attributes on customer order, invoice, and receipt emails, and on the "
 "customer's View Order page."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:524
+#: woocommerce-show-attributes.php:783
 msgid "Show Attributes on Admin New Order Email"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:528
+#: woocommerce-show-attributes.php:787
 msgid "Show attributes on the New Order email which goes to the Administrator."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:531
+#: woocommerce-show-attributes.php:790
 msgid "Show Attributes on Admin Order Details Page"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:535
+#: woocommerce-show-attributes.php:794
 msgid ""
 "Show attributes on the Order Details page on the back end, listed under "
 "\"Order Items\"."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:541
+#: woocommerce-show-attributes.php:799
 msgid "Style Options"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:542
+#: woocommerce-show-attributes.php:800
 msgid "These options affect the style or appearance of the attributes."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:547
+#: woocommerce-show-attributes.php:805
 msgid "Hide the Labels When Showing Product Attributes"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:551
+#: woocommerce-show-attributes.php:809
 msgid ""
 "Check this box to hide the attribute labels and only show the attribute "
 "values."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:554
+#: woocommerce-show-attributes.php:812
 msgid "Show Attributes in a span Element"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:558
+#: woocommerce-show-attributes.php:816
 msgid ""
 "Check this box to use a span element instead of list bullets when showing "
 "product attributes on the single product page."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:561
-msgid "Remove Semicolon From Attribute Labels"
+#: woocommerce-show-attributes.php:819
+msgid "Remove Colon From Attribute Labels"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:565
+#: woocommerce-show-attributes.php:823
 msgid ""
-"Check this box to remove the semicolon from the attribute labels. Useful for "
-"RTL languages."
+"Check this box to remove the colon from the attribute labels. Useful for RTL "
+"languages."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:570
+#: woocommerce-show-attributes.php:828
 msgid "Show Weight and Dimensions"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:571
+#: woocommerce-show-attributes.php:829
 msgid ""
 "These options let you show the product weight and dimensions in various "
 "places."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:576
+#: woocommerce-show-attributes.php:834
 msgid "Show Weight on Product Page Above Add To Cart"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:580
+#: woocommerce-show-attributes.php:838
 msgid ""
 "Show product weight on the single product pages, and Grouped products, above "
 "Add To Cart instead of in the Additional Information tab."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:583
+#: woocommerce-show-attributes.php:841
 msgid "Show Dimensions on Product Page Above Add To Cart"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:587
+#: woocommerce-show-attributes.php:845
 msgid ""
 "Show product dimensions on the single product pages, and Grouped products, "
 "above Add To Cart instead of in the Additional Information tab."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:590
+#: woocommerce-show-attributes.php:848
 msgid "Show Weight on Cart Page"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:594
+#: woocommerce-show-attributes.php:852
 msgid "Show product weight on the cart and checkout pages."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:597
+#: woocommerce-show-attributes.php:855
 msgid "Show Dimensions on Cart Page"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:601
+#: woocommerce-show-attributes.php:859
 msgid "Show product dimensions on the cart and checkout pages."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:604
+#: woocommerce-show-attributes.php:862
 msgid "Show Weight on Customer Order Emails"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:608
+#: woocommerce-show-attributes.php:866
 msgid ""
 "Show product weight on customer order, invoice, and receipt emails, and on "
 "the customer's View Order page."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:611
+#: woocommerce-show-attributes.php:869
 msgid "Show Dimensions on Customer Order Emails"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:615
+#: woocommerce-show-attributes.php:873
 msgid ""
 "Show product dimensions on customer order, invoice, and receipt emails, and "
 "on the customer's View Order page."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:618
+#: woocommerce-show-attributes.php:876
 msgid "Show Weight on Admin New Order Email"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:622
+#: woocommerce-show-attributes.php:880
 msgid ""
 "Show product weight on the New Order email which goes to the Administrator."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:625
+#: woocommerce-show-attributes.php:883
 msgid "Show Dimensions on Admin New Order Email"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:629
+#: woocommerce-show-attributes.php:887
 msgid ""
 "Show product dimensions on the New Order email which goes to the "
 "Administrator."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:632
+#: woocommerce-show-attributes.php:890
 msgid "Show Weight on Admin Order Details Page"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:636
+#: woocommerce-show-attributes.php:894
 msgid ""
 "Show product weight on the Order Details page on the back end, listed under "
 "\"Order Items\"."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:639
+#: woocommerce-show-attributes.php:897
 msgid "Show Dimensions on Admin Order Details Page"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:643
+#: woocommerce-show-attributes.php:901
 msgid ""
 "Show product dimensions on the Order Details page on the back end, listed "
 "under \"Order Items\"."
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:664
-msgid "WC Show Attributes"
+#: woocommerce-show-attributes.php:906
+msgid "Extra Options"
 msgstr ""
 
-#: /var/www/html/wp-content/plugins/woocommerce-show-attributes/woocommerce-show-attributes.php:744
-msgid "Additional Information"
+#: woocommerce-show-attributes.php:911
+msgid "Show Attribute Terms as Links"
+msgstr ""
+
+#: woocommerce-show-attributes.php:915
+msgid ""
+"On the single product page, show the attribute terms as links. They will "
+"link to their archive pages. This only works with Global Attributes. Global "
+"Attributes are created in Products -> Attributes."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Show Attributes"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://isabelcastillo.com/docs/woocommerce-show-attributes"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Show WooCommerce custom product attributes on the Product, Shop and Cart "
+"pages, admin Order Details page and emails."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Isabel Castillo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://isabelcastillo.com"
 msgstr ""
