@@ -154,7 +154,11 @@ class WooCommerce_Show_Attributes {
 											$translation = pll__( $tax_label );
 											$tax_label = ( ! empty( $translation ) ) ? $translation : $tax_label;
 										}
-
+										// WPML translation support
+										if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+											$translation = apply_filters( 'wpml_translate_single_string', $tax_label, 'WordPress', 'taxonomy singular name: '. $tax_label );
+										    $tax_label = ( ! empty( $translation ) ) ? $translation : $tax_label;
+										}										
 										$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $tax_label ) ) . '</span>' . $colon . ' </span> ';
 									}
 									$out_middle .= '<span class="attribute-value">';
