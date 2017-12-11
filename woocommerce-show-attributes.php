@@ -380,8 +380,6 @@ class WooCommerce_Show_Attributes {
 		if ( get_option( 'wcsa_dimensions_cart' ) == 'yes' ) {
 			$show_dimensions = true;
 		}
-
-		$out = $cart_item;
 		if ( get_option( 'wcsa_cart' ) != 'no' ) {
 			$skip_atts = null;
 		} else {
