@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R7BHLMCQ437SS
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
-Tested up to: 4.8-alpha-40406
-Stable tag: 1.6.2
+Tested up to: 5.0-alpha-42382
+Stable tag: 1.6.3
 License: GNU Version 2 or Any Later Venrsion
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,9 +31,14 @@ Your product attributes will **also** be displayed at these locations (with opti
 
 See the [full documentation](https://isabelcastillo.com/docs/woocommerce-show-attributes).
 
-## Translations
+**Languages**
 
-If you want to translate this plugin to your language, you can do so easily [on this page](https://translate.wordpress.org/projects/wp-plugins/woocommerce-show-attributes). After you submit a translation, contact me to request approval as a Translation Editor.
+If you want to translate this plugin to your language, you can do so easily [on this page](https://translate.wordpress.org/projects/wp-plugins/woocommerce-show-attributes). After you submit a translation, contact me in the support forum to request approval as a Translation Editor.
+
+**Disclaimer**
+
+I am not affiliated with WooCommerce, WooThemes, or Automattic. I provide this plugin as a free service to the WP community because of the many requests that I received for it.
+
 
 == Installation ==
 
@@ -118,6 +123,11 @@ Add this CSS:
 3. The attributes under the product name on the Edit Order page in the admin backend.
 
 == Changelog ==
+
+= 1.6.3 =
+* New - Added WPML translation support.
+* New - Updated the .pot translation file.
+* Tweak - Remove unused duplicate variable.
 
 = 1.6.2 =
 * New - Add PolyLang translation support for attribute names.
