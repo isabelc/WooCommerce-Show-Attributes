@@ -5,7 +5,7 @@ Tags: product attributes, woocommerce product attributes, woocommerce attributes
 Requires at least: 3.8
 Tested up to: 4.8-alpha-40406
 Stable tag: 1.6.2
-License: GNU Version 2 or Any Later Version
+License: GNU Version 2 or Any Later Venrsion
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Show WooCommerce custom product attributes on the Product, Shop, and Cart pages, admin Order Details page and emails.
@@ -29,9 +29,11 @@ Your product attributes will **also** be displayed at these locations (with opti
 * Grouped product page
 * Shop page (including product category and tag archives) (Off by default. You must enable this option on the settings page.)
 
-Includes a .pot localization file to make this plugin WPML-ready. Also includes language translations files for the Finnish language.
-
 See the [full documentation](https://isabelcastillo.com/docs/woocommerce-show-attributes).
+
+## Translations
+
+If you want to translate this plugin to your language, you can do so easily [on this page](https://translate.wordpress.org/projects/wp-plugins/woocommerce-show-attributes). After you submit a translation, contact me to request approval as a Translation Editor.
 
 == Installation ==
 
