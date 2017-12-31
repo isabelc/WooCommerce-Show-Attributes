@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Show Attributes
 Plugin URI: https://isabelcastillo.com/docs/woocommerce-show-attributes
 Description: Show WooCommerce custom product attributes on the Product, Shop and Cart pages, admin Order Details page and emails.
-Version: 1.6.3
+Version: 1.6.4.alpha.3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -38,7 +38,7 @@ class WooCommerce_Show_Attributes {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'woocommerce_single_product_summary', array( $this, 'show_atts_on_product_page' ), 25 );
 		add_filter( 'woocommerce_product_tabs', array( $this, 'additional_info_tab' ), 98 );
-		add_filter( 'woocommerce_cart_item_name', array( $this, 'show_atts_on_cart' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_name', array( $this, 'show_atts_on_cart' ), 10, 3 );
 		add_filter( 'woocommerce_order_item_name', array( $this, 'show_atts_on_customer_order' ), 99, 2 );
 		add_filter( 'woocommerce_order_item_name', array( $this, 'show_admin_new_order_email' ), 99, 2 );
 		add_action( 'woocommerce_admin_order_item_values', array( $this, 'show_atts_in_admin_order'), 10, 3 );
@@ -59,12 +59,99 @@ class WooCommerce_Show_Attributes {
 	}
 
 	/**
-	* Get the attributes.
-	*
-	* Returns the HTML string for the custom product attributes.
+	 * Get the non-variation attributes of product.
+	 *
+	 * @param WC_Product_Simple|WC_Product_Variation $product Product instance.
+	 * @param mixed $single_product true when on single product page
+	 * @return array of attributes, each with label and value
+	 * @since 1.6.4
+	 */
+	private function get_attributes( $product, $single_product ) {
+		$out = array();
+
+		// If this is a Product_Variation object, the non-variation attributes are not returned with $product->get_attributes().
+		// So, we get the non-variation attributes with get_post_meta.
+
+		if ( is_a( $product, 'WC_Product_Variation' ) ) {
+
+			$attributes = get_post_meta( $product->get_parent_id(), '_product_attributes', true );
+
+			if ( ! $attributes ) {
+				return $out;
+			}
+
+			foreach ( $attributes as $attribute ) {
+
+				if ( $attribute['is_visible'] && empty( $attribute['is_variation'] ) ) {
+
+					if ( $attribute['is_taxonomy'] ) {
+
+						$out[] = $this->get_global_taxonomy_attribute_data( $attribute['name'], $product->get_parent_id(), $single_product );
+
+					} else {
+
+						$out[] = array(
+									'label' => $attribute['name'],
+									'value' => $attribute['value']
+						);
+					}
+
+				}
+			}
+
+		} else {
+
+			$attributes = $product->get_attributes();
+			if ( ! $attributes ) {
+				return;
+			}
+
+			foreach ( $attributes as $attribute ) {
+
+				// skip variations
+				if ( ! is_a( $attribute, 'WC_Product_Attribute' ) ) {
+					continue;
+				}
+				if ( $attribute->get_variation() ) {
+					continue;
+				}
+
+				// honor the visibility setting
+				if ( ! $attribute->get_visible() ) {
+					continue;
+				}
+
+				$name = $attribute->get_name();
+
+				if ( $attribute->is_taxonomy() ) {
+
+					// global attributes
+
+					$out[] = $this->get_global_taxonomy_attribute_data( $name, $product, $single_product );
+				} else {
+
+					// custom, non-global attributes
+
+					$out[] = array(
+								'label' => $name,
+								'value' => esc_html( implode( ', ', $attribute->get_options() ) )
+					);
+
+				}
+
+			} // end foreach attributes
+
+		}
+
+		return $out;
+
+	}
+
+	/**
+	* Returns the HTML string for the product attributes.
 	* This does not affect nor include attributes which are used for Variations.
 	*
-	* @param object $product The product object. Default null to avoid errors.
+	* @param WC_Product_Simple|WC_Product_Variation $product Product instance. Default null to avoid errors.
 	* @param string $element HTML element to wrap each attribute with, accepts span or li.
 	* @param boolean $show_weight whether to show the product weight
 	* @param boolean $show_dimensions whether to show the product dimensions
@@ -101,116 +188,45 @@ class WooCommerce_Show_Attributes {
 
 		   		if ( ! $skip_atts ) {
 
-					$attributes = $product->get_attributes();
+					$attributes = $this->get_attributes( $product, $single_product );
+
 					if ( ! $attributes ) {
 						return;
 					}
 
 					foreach ( $attributes as $attribute ) {
-						if ( ! is_a( $attribute, 'WC_Product_Attribute' ) ) {
-							continue;
-						}
 
-						// skip variations
-						if ( $attribute->get_variation() ) {
-							continue;
-						}
+						$class_string = sanitize_title( strip_tags( $attribute['value'] ) );
 
-						// honor the visibility setting
-						if ( ! $attribute->get_visible() ) {
-							continue;
-						}
+						$out_middle .= '<' . esc_attr( $element ) . ' class="' . esc_attr( sanitize_title( $attribute['label'] ) ) . ' ' . esc_attr( $class_string ) . '">';
 
-						$name = $attribute->get_name();
 
-						if ( $attribute->is_taxonomy() ) {
-
-							$product_id = $product->get_id();
-							$terms = wp_get_post_terms( $product_id, $name, 'all' );
-
-							if ( ! empty( $terms ) ) {
-								if ( ! is_wp_error( $terms ) ) {
-
-									// get the taxonomy
-									$tax = $terms[0]->taxonomy;
-									// get the tax object
-									$tax_object = get_taxonomy($tax);
-									// get tax label
-									if ( isset ( $tax_object->labels->singular_name ) ) {
-										$tax_label = $tax_object->labels->singular_name;
-									} elseif ( isset( $tax_object->label ) ) {
-										$tax_label = $tax_object->label;
-										// Trim label prefix
-										$label_prefix = __( 'Product', 'woocommerce-show-attributes' ) . ' ';
-										if ( 0 === strpos( $tax_label,  $label_prefix ) ) {
-	        								$tax_label = substr( $tax_label, strlen( $label_prefix ) );
-										}										
-									}
-									$out_middle .= '<' . esc_attr( $element ) . ' class="' . esc_attr( $name ) . '">';
-									// Hide labels if they want to
-									if ( $hide_labels != 'yes' ) {
-										// PolyLang translation support
-										if ( function_exists( 'pll__' ) ) {
-											$translation = pll__( $tax_label );
-											$tax_label = ( ! empty( $translation ) ) ? $translation : $tax_label;
-										}
-										// WPML translation support
-										if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-											$translation = apply_filters( 'wpml_translate_single_string', $tax_label, 'WordPress', 'taxonomy singular name: '. $tax_label );
-										    $tax_label = ( ! empty( $translation ) ) ? $translation : $tax_label;
-										}										
-										$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $tax_label ) ) . '</span>' . $colon . ' </span> ';
-									}
-									$out_middle .= '<span class="attribute-value">';
-
-									$tax_terms = array();
-									foreach ( $terms as $term ) {
-
-										$single_term = sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $term->name ) );
-
-										// Show terms as links?
-
-										if ( $single_product ) {
-
-											if ( get_option( 'wcsa_terms_as_links' ) == 'yes' ) {
-	    										$term_link = get_term_link( $term );
-												if ( ! is_wp_error( $term_link ) ) {
-													$single_term = '<a href="' . esc_url( $term_link ) . '">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $term->name ) ) . '</a>';
-												}
-											}
-										}
-									    array_push( $tax_terms, $single_term );
-									}
-									$out_middle .= implode(', ', $tax_terms);
-	 								$out_middle .= '</span></' . esc_attr( $element ) . '>';
-
-									if ('span' == $element) {
-										$out_middle .= '<br />';
-									}
-								}
+						// Hide labels if they want to
+						if ( 'yes' != $hide_labels ) {
+								
+							// PolyLang translation support
+							if ( function_exists( 'pll__' ) ) {
+								$translation = pll__( $attribute['label'] );
+								$attribute['label'] = ( ! empty( $translation ) ) ? $translation : $attribute['label'];
 							}
+							// WPML translation support
+							if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+								$translation = apply_filters( 'wpml_translate_single_string', $attribute['label'], 'WordPress', 'taxonomy singular name: '. $attribute['label'] );
+							    $attribute['label'] = ( ! empty( $translation ) ) ? $translation : $attribute['label'];
+							}										
 
-						} else {
-							$value_string = implode( ', ', $attribute->get_options() );
-							$out_middle .= '<' . esc_attr( $element ) . ' class="' . sanitize_title( $name ) . ' ' . sprintf( __( '%s', 'woocommerce-show-attributes' ), sanitize_title( $value_string ) ) . '">';
-
-							// Hide labels if they want to
-							if ( $hide_labels != 'yes' ) {
-
-								// PolyLang translation support
-								if ( function_exists( 'pll__' ) ) {
-									$translation = pll__( $name );
-									$name = ( ! empty( $translation ) ) ? $translation : $name;
-								}
-
-								$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $name ) ) . '</span>' . $colon . ' </span> ';
-							}
-							$out_middle .= '<span class="attribute-value">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $value_string ) ) . '</span></' . esc_attr( $element ) . '>';
-							if ('span' == $element) {
-								$out_middle .= '<br />';
-							}
-
+							$out_middle .= '<span class="attribute-label"><span class="attribute-label-text">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $attribute['label'] ) ) . '</span>' . $colon . ' </span> ';
+							
 						}
+							
+						$out_middle .= '<span class="attribute-value">';
+						$out_middle .= $attribute['value'];
+						$out_middle .= '</span></' . esc_attr( $element ) . '>';
+
+						if ('span' == $element) {
+							$out_middle .= '<br />';
+						}
+					
 
 					} // ends foreach attribute
 				}
@@ -250,8 +266,72 @@ class WooCommerce_Show_Attributes {
 					$out .= ('li' == $element) ? '</ul>' : '</span>';
 				}
 
+		
+
 			}
 		}
+		return $out;
+	}
+
+	/**
+	 * Get the attribute label and value for a global attribute.
+	 * 
+	 * Global attributes are those which are stored as taxonomies and created on the Products > Attributes page.
+	 *
+	 * @param string $name Name of the attribute
+	 * @param int|WC_Product_Simple|WC_Product_Variation $product Product id or instance.
+	 * @param mixed $single_product true when on single product page
+	 * @since 1.6.4
+	 */
+	private function get_global_taxonomy_attribute_data( $name, $product, $single_product ) {
+		$out = array();
+
+		$product_id = is_numeric( $product ) ? $product : $product->get_id();
+		$terms = wp_get_post_terms( $product_id, $name, 'all' );
+
+		if ( ! empty( $terms ) ) {
+			if ( ! is_wp_error( $terms ) ) {
+
+				// Get the label
+
+				$tax = $terms[0]->taxonomy;
+				$tax_object = get_taxonomy($tax);
+				// get tax label
+				if ( isset ( $tax_object->labels->singular_name ) ) {
+					$out['label'] = $tax_object->labels->singular_name;
+				} elseif ( isset( $tax_object->label ) ) {
+					$out['label'] = $tax_object->label;
+					// Trim label prefix
+					$label_prefix = __( 'Product', 'woocommerce-show-attributes' ) . ' ';
+					if ( 0 === strpos( $out['label'], $label_prefix ) ) {
+						$out['label'] = substr( $out['label'], strlen( $label_prefix ) );
+					}										
+				}
+
+				// Get the term value
+
+				$tax_terms = array();
+				foreach ( $terms as $term ) {
+					$single_term = sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $term->name ) );
+
+					// Show terms as links?
+					if ( $single_product ) {
+						if ( get_option( 'wcsa_terms_as_links' ) == 'yes' ) {
+							$term_link = get_term_link( $term );
+							if ( ! is_wp_error( $term_link ) ) {
+								$single_term = '<a href="' . esc_url( $term_link ) . '">' . sprintf( __( '%s', 'woocommerce-show-attributes' ), esc_html( $term->name ) ) . '</a>';
+							}
+						}
+					}
+
+					array_push( $tax_terms, $single_term );
+									
+				}
+
+				$out['value'] = implode(', ', $tax_terms);
+			}
+		}
+
 		return $out;
 	}
 
@@ -371,7 +451,7 @@ class WooCommerce_Show_Attributes {
 	/**
 	* Show product attributes on the Cart page.
 	*/
-	public function show_atts_on_cart( $cart_item, $cart_item_key ) {
+	public function show_atts_on_cart( $name, $cart_item, $cart_item_key ) {
 		$show_weight = null;
 		if ( get_option( 'wcsa_weight_cart' ) == 'yes' ) {
 			$show_weight = true;
@@ -386,8 +466,8 @@ class WooCommerce_Show_Attributes {
 			$skip_atts = true;
 		}
 
-		$product = $cart_item_key['data'];
-		$out = $cart_item . '<br />' . wp_kses_post( $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) );
+		$product = $cart_item['data'];
+		$out = $name . '<br />' . wp_kses_post( $this->the_attributes( $product, 'span', $show_weight, $show_dimensions, $skip_atts ) );
 
 		return $out;
 
