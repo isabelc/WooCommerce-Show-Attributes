@@ -3,7 +3,7 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R7BHLMCQ437SS
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
-Tested up to: 5.0-alpha-42382
+Tested up to: 5.0-alpha-42420
 Stable tag: 1.6.3
 License: GNU Version 2 or Any Later Venrsion
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,8 +11,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Show WooCommerce custom product attributes on the Product, Shop, and Cart pages, admin Order Details page and emails.
 
 == Description ==
-
-= Requires WooCommerce 3.0 or above. =
 
 This is an extension for WooCommerce that will show your custom product attributes on the single product page above the "Add to cart" button instead of in the "Additional Information" tab. Your product attributes will also be displayed at several other locations, including on order emails. See the full list, below. This plugin does NOT affect nor include attributes which are used for Variations.
 
@@ -37,7 +35,7 @@ If you want to translate this plugin to your language, you can do so easily [on 
 
 **Disclaimer**
 
-I am not affiliated with WooCommerce, WooThemes, or Automattic. I provide this plugin as a free service to the WP community because of the many requests that I received for it.
+I am not affiliated with WooCommerce or Automattic. I provide this plugin as a free service to the WP community because of the many requests that I received for it.
 
 
 == Installation ==
