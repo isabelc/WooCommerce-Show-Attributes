@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: product attributes, woocommerce product attributes, woocommerce attributes, woocommerce, attributes
 Requires at least: 3.8
 Tested up to: 5.0-alpha-42420
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GNU Version 2 or Any Later Venrsion
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,6 +122,9 @@ Add this CSS:
 
 == Changelog ==
 
+= 1.6.4 =
+* Fix - Restored missing attributes on the Cart page for variable products.
+
 = 1.6.3 =
 * New - Added WPML translation support.
 * New - Updated the .pot translation file.
@@ -223,6 +226,9 @@ Add this CSS:
 = 1.0 =
 * Initial release.
 == Upgrade Notice ==
+
+= 1.6.4 =
+Fixed missing attributes on the Cart page for variable products.
 
 = 1.6.2 =
 Fixed a fatal error. New PolyLang translation support for attribute names. This plugin requires WooCommerce 3.0 or higher.
